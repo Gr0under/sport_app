@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{event.title}} - {{event.locationCity}} - MonSite, trouver des évènements sportifs dans votre ville{% endblock %}
+
+{% block body %}
+	{% include('sections/brand_top.html.twig') %}
+
+
+
+<section class="event">
+	<img src=" {{asset(event.thumbnail)}} " alt="" class="event__thumbnail">
+	
+	<h1 class="event__title">{{event.title}}</h1>
+	<span class="event__organiser event__text">Organisé par : {{event.organiser}}</span>
+	<p class="event__description event__text">{{event.description}}</p>
+	
+	<h2 class="event__subtitle">Lieu / Point de rassemblement</h2>
+	<p class="event__assembly_point event__text">{{event.assemblyPoint}}</p>
+	
+	<h2 class="event__subtitle">Matériel Nécessaire</h2>
+	<p class="event__material">{{event.material}}</p>
+	
+	<h2 class="event__subtitle">Participants (x/x)</h2>
+	<p class="event__players">{{event.player}} </p>
+	<div class="event__remaining-availabilities">6 places restantes</div>
+	
+	<h2 class="event__subtitle">Prix</h2>
+	<p class="event__price event__text">{{event.priceDescription}} </p>
+	
+	<h2 class="event__subtitle">Niveau Requis</h2>
+	<p class="event__level event__text"><span class="event__level--color-red">{{event.level}}.</span> {{event.levelDescription}}</p>
+
+	<a href="#" class="event__cta-participate ">rejoindre</a>
+</section>
+
+
+
+{% include("sections/navbar_mobile.html.twig") %}
+
+
+
+
+{% endblock %}

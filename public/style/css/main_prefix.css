@@ -8,7 +8,8 @@ body {
 body {
   margin: 0;
   background: #FDFFFC;
-  color: #011627; }
+  color: #011627; 
+  padding-bottom: 72px; }
 
 .topBrand {
   width: 100%;
@@ -27,7 +28,9 @@ body {
   width: 100%;
   max-width: 344px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 5px; }
+  border-radius: 5px; 
+  margin-bottom: 1.5rem; }
+}
   .card_event__header {
     position: relative; }
     .card_event__header .card_event__thumbnail {
@@ -85,7 +88,35 @@ body {
         background: #E71D36;
         color: #FDFFFC;
         padding: 0.6rem;
-        margin: 0 1.5rem 0rem 1rem; }
+        margin: 0 1.5rem 0rem 1rem;
+        text-decoration: none;
+        text-transform: uppercase;
+        font-family: 'Roboto Condensed'; }
+
+.navbarMobile {
+  height: 72px;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  background: #FDFFFC;
+  color: #E71D36;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: 0px -1px 5px rgba(0, 0, 0, 0.25);
+  border-radius: 10px 10px 0px 0px; }
+  .navbarMobile__link {
+    color: #E71D36;
+    text-decoration: none;
+    text-transform: uppercase;
+    display: block;
+    text-align: center;
+    font-size: 12px;
+    font-style: italic; }
+    .navbarMobile__link .navbarMobile__icon {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem; }
 
 .landing_page__title {
   font-family: 'Roboto Condensed', sans-serif;
@@ -99,3 +130,40 @@ body {
   justify-content: center;
   align-items: center;
   padding: 0 1rem; }
+
+.event__thumbnail {
+  width: 100%; }
+
+.event__title, .event__subtitle {
+  font-size: 18px;
+  font-family: 'Roboto Condensed', sans-serif;
+  text-transform: uppercase; }
+
+.event__title, .event__subtitle, .event__text {
+  margin: 1rem; }
+
+.event__organiser {
+  color: #2EC4B6; }
+
+.event__remaining-availabilities {
+  width: 100%;
+  text-align: center;
+  color: #2EC4B6; }
+
+.event__level--color-red {
+  color: #E71D36; }
+
+.event__cta-participate {
+  display: inline-block;
+  background: #E71D36;
+  color: #FDFFFC;
+  padding: 0.6rem;
+  margin: 0 1.5rem 0rem 1rem;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-family: 'Roboto Condensed';
+  position: fixed;
+  right: 1rem;
+  bottom: calc(72px + 1rem);
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+  margin-right: 0; }

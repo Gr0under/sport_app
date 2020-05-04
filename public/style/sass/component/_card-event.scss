@@ -3,6 +3,8 @@
 	max-width: 344px;
 	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 	border-radius: 5px;
+	margin-bottom: 1.5rem;
+
 	
 	&__header{
 		position: relative;
@@ -85,11 +87,13 @@
 			}
 
 			&--register{
+
 				display: inline-block;
 				background: $red;
 				color: $text-color-light;
 				padding: 0.6rem;
 				margin: 0 1.5rem 0rem 1rem;
+				@include red-btn;
 			}
 
 
