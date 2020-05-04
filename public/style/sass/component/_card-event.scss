@@ -88,11 +88,6 @@
 
 			&--register{
 
-				display: inline-block;
-				background: $red;
-				color: $text-color-light;
-				padding: 0.6rem;
-				margin: 0 1.5rem 0rem 1rem;
 				@include red-btn;
 			}
 
