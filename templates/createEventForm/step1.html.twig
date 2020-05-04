@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	Créons ensemble un premier event
+	{{ form_start(createEventForm) }}
+	    {{ form_widget(createEventForm) }}
+	    <button type="submit" class="btn btn-primary">Create!</button>
+	{{ form_end(createEventForm) }}
+
+{% endblock %}
