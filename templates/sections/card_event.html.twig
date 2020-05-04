@@ -1,32 +1,35 @@
 <section class="event_container">
 
-	<div class="card_event event_container__card_event">
+	{% for event in events %}
+		<div class="card_event event_container__card_event">
 
-		<div class="card_event__header">
-			<img src=" {{asset("/img/component/card/thumbnail_basket.jpg")}} " alt="match de basket" class="card_event__thumbnail">
-			<div class="like_container">
-				<i class="far fa-star"></i>
+			<div class="card_event__header">
+				<img src=" {{asset(event.thumbnail)}} " alt="match de basket" class="card_event__thumbnail">
+				<div class="like_container">
+					<i class="far fa-star"></i>
+				</div>
+			</div>
+
+			<div class="card_event__info-container">
+				<h4 class="card_event__title">{{event.title}}</h4>
+				<span class="card_event__organiser">Organisé par : {{event.organiser}}</span>
+				
+				<div class="card_event__list-infos list_component">
+					<ul>
+						<li><i class="fas fa-calendar-alt"></i> {{event.date|date("d/m/Y")}} | {{event.timeStart|date("H")}}h - {{event.timeEnd|date("H")}}h  </li>
+						<li><i class="fas fa-map-marker-alt"></i>{{event.locationCity}} ({{event.locationDpt}})</li>
+						<li><i class="fas fa-users"></i>Participants : 5 / 10</li>
+						<li><i class="fas fa-fist-raised"></i>Niveau : {{event.level}}</li>
+					</ul>
+				</div>
+				
+				
+				<div class="card_event__actions">
+					<a href=" {{path("event", {slug: event.id})}} " class="card_event__action card_event__actions--more_info">+ d'infos</a>
+					<a href=" {{path("event", {slug: event.id})}} " class="card_event__action card_event__actions--register">rejoindre</a>
+				</div>
 			</div>
 		</div>
+	{% endfor %}
 
-		<div class="card_event__info-container">
-			<h4 class="card_event__title">match de basket</h4>
-			<span class="card_event__organiser">Organisé par : Paul Juk</span>
-			
-			<div class="card_event__list-infos list_component">
-				<ul>
-					<li><i class="fas fa-calendar-alt"></i>02/05/2020  |  18h-20h</li>
-					<li><i class="fas fa-map-marker-alt"></i>Cergy le haut (95)</li>
-					<li><i class="fas fa-users"></i>Participants : 5 / 10</li>
-					<li><i class="fas fa-fist-raised"></i>Niveau : Tous niveaux</li>
-				</ul>
-			</div>
-			
-			
-			<div class="card_event__actions">
-				<a href="#" class="card_event__action card_event__actions--more_info">+ d'infos</a>
-				<a href="#" class="card_event__action card_event__actions--register">rejoindre</a>
-			</div>
-		</div>
-	</div>
 </section>
