@@ -1,0 +1,15 @@
+.topBrand{
+	width: 100%;
+	height: 48px;
+	background: $red;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	&__title{
+		font-family: 'Roboto Condensed';
+		color: $text-color-light;
+		margin-left: 1rem;
+		font-size: 1.5rem;
+	}
+}

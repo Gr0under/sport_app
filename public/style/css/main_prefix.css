@@ -1,2 +1,101 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@1,700&family=Roboto:ital,wght@0,400;1,700&display=swap");
 body {
-  background: red; }
+  font-family: 'Roboto', sans-serif; }
+
+* {
+  box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: #FDFFFC;
+  color: #011627; }
+
+.topBrand {
+  width: 100%;
+  height: 48px;
+  background: #E71D36;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+  .topBrand__title {
+    font-family: 'Roboto Condensed';
+    color: #FDFFFC;
+    margin-left: 1rem;
+    font-size: 1.5rem; }
+
+.card_event {
+  width: 100%;
+  max-width: 344px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 5px; }
+  .card_event__header {
+    position: relative; }
+    .card_event__header .card_event__thumbnail {
+      width: 100%; }
+    .card_event__header .like_container {
+      position: absolute;
+      bottom: 4px;
+      right: 0;
+      height: 34px;
+      width: 34px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: rgba(1, 22, 39, 0.3);
+      cursor: pointer; }
+      .card_event__header .like_container .fa-star {
+        color: #FF9F1C;
+        font-size: 1.3rem; }
+  .card_event__info-container {
+    padding: 0 1rem; }
+    .card_event__info-container .card_event__title {
+      font-weight: 700;
+      font-style: italic;
+      text-transform: uppercase;
+      font-size: 18px;
+      margin-bottom: 6px; }
+    .card_event__info-container .card_event__organiser {
+      color: #2EC4B6; }
+    .card_event__info-container .card_event__list-infos ul {
+      padding-left: 0;
+      margin-top: 0; }
+      .card_event__info-container .card_event__list-infos ul li {
+        list-style-type: none;
+        padding: 0.9rem 0; }
+        .card_event__info-container .card_event__list-infos ul li i {
+          color: #FF9F1C;
+          font-size: 1.5rem;
+          margin-right: 2rem;
+          width: 1.5rem;
+          text-align: center; }
+    .card_event__info-container .card_event__actions {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      margin-bottom: 2rem; }
+      .card_event__info-container .card_event__actions .card_event__action {
+        text-decoration: none;
+        font-family: 'Roboto Condensed';
+        text-transform: uppercase;
+        font-size: 1rem; }
+      .card_event__info-container .card_event__actions--more_info {
+        color: #2EC4B6; }
+      .card_event__info-container .card_event__actions--register {
+        display: inline-block;
+        background: #E71D36;
+        color: #FDFFFC;
+        padding: 0.6rem;
+        margin: 0 1.5rem 0rem 1rem; }
+
+.landing_page__title {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 1.5rem;
+  margin: 1rem; }
+
+.event_container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 1rem; }

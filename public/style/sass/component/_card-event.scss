@@ -1,0 +1,98 @@
+.card_event{
+	width: 100%;
+	max-width: 344px;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	border-radius: 5px;
+	
+	&__header{
+		position: relative;
+
+		.card_event__thumbnail{
+			width: 100%;
+		}
+
+		.like_container{
+			position: absolute;
+			bottom: 4px;
+			right: 0;
+			height: 34px;
+			width: 34px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			background: rgba(1, 22, 39, 0.3);
+			cursor: pointer; 
+
+			.fa-star{
+				color: $gold;
+				font-size: 1.3rem;
+			}
+		}
+	}
+
+	&__info-container{
+		padding: 0 1rem ;
+
+
+		.card_event__title{
+			font-weight: 700 ;
+			font-style: italic;
+			text-transform: uppercase;
+			font-size: 18px;
+			margin-bottom: 6px;
+		}
+
+		.card_event__organiser{
+			color: $green;
+		}
+
+		.card_event__list-infos{
+			ul{
+				padding-left: 0;
+				margin-top: 0;
+
+				li{
+					list-style-type: none;
+					padding: 0.9rem 0;
+
+					i{
+						color: $gold;
+						font-size: 1.5rem;
+						margin-right: 2rem;
+						width: 1.5rem;
+						text-align: center;
+					}
+				}
+			}
+
+		}
+		.card_event__actions{
+
+			display: flex;
+			justify-content: flex-end;
+			align-items: center;
+			margin-bottom: 2rem;
+
+			.card_event__action{
+				text-decoration: none;
+				font-family: 'Roboto Condensed';
+				text-transform: uppercase;
+				font-size: 1rem;
+			}
+
+			&--more_info{
+				color: $green;
+			}
+
+			&--register{
+				display: inline-block;
+				background: $red;
+				color: $text-color-light;
+				padding: 0.6rem;
+				margin: 0 1.5rem 0rem 1rem;
+			}
+
+
+		}
+	}
+}
