@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\SportEvent;
+use App\Entity\SportCategory;
 use App\Form\CreateEventStep1Type;
 use App\Form\CreateEventStep2Type;
 use App\Form\CreateEventStep3Type;
@@ -26,7 +27,7 @@ class CreateEventController extends AbstractController{
 		{
 			$sportEvent = new SportEvent();
 			$this->session->set('sportEvent', $sportEvent);
-			echo "session créée";
+			
 		}
 
 		switch($step){
@@ -35,15 +36,16 @@ class CreateEventController extends AbstractController{
 				
 
 				$formStep1 = $this->createform(CreateEventStep1Type::class);
+				
 				$formStep1->handleRequest($request); 
 
 				if($formStep1->isSubmitted() && $formStep1->isValid())
 				{
 					$data = $formStep1->getData();
+					// dump($data->getCategory()->getSportName()); 
 
-
-					$this->session->get("sportEvent")->setTitle($data->getTitle());
-					dump($this->session->get("sportEvent"));
+					$this->session->get("sportEvent")->setSportCategory($data->getSportCategory());
+					
 					
 					return $this->redirectToRoute("createEvent", ["step"=>"description"]);
 				}
@@ -60,13 +62,32 @@ class CreateEventController extends AbstractController{
 				$formStep2->handleRequest($request); 
 
 				if($formStep2->isSubmitted() && $formStep2->isValid()){
+
 					$data = $formStep2->getData();
-					$this->session->get("sportEvent")->setDescription($data->getDescription());  
+					$this->session->get("sportEvent")
+						->setTitle($data->getTitle())
+						->setDescription($data->getDescription())
+
+						;  
+
 					return $this->redirectToRoute("createEvent", ["step"=>"tout-le-reste"]);
 				}
 
+				dump($this->session); 
+
+				$repository = $em->getRepository(SportCategory::class); 
+
+				$sportId = $this->session->get("sportEvent")->getSportCategory()->getId();
+
+				dump($sportId); 
+
+				$sport = $repository->findOneBy(['id' => $sportId]); 
+
+				dump($sport); 
+
 				return $this->render("createEventForm/step2.html.twig", [
 					"createEventForm" => $formStep2->createView(),
+					"sport" => $sport,
 				]);
 
 			break; 
@@ -74,6 +95,8 @@ class CreateEventController extends AbstractController{
 			case "tout-le-reste": 
 				$formStep3 = $this->createform(CreateEventStep3Type::class);
 				$formStep3->handleRequest($request); 
+
+
 
 				if($formStep3->isSubmitted() && $formStep3->isValid()){
 
@@ -126,6 +149,33 @@ class CreateEventController extends AbstractController{
 		}
 
 	
+	}
+
+
+	/**
+	 * @Route("/json-test")
+	 */
+	public function jsonTest(){
+		$photoCollection = [
+			"0" => "/img/component/card/thumbnail_basket_1.jpg", 
+			"1" => "/img/component/card/thumbnail_basket_2.jpg", 
+			"2" => "/img/component/card/thumbnail_basket_3.jpg", 
+			"3" => "/img/component/card/thumbnail_basket_4.jpg", 
+		];
+
+
+		$data = json_encode($photoCollection); 
+
+		dump($data); 
+
+		$data = json_decode($data); 
+		dump($data); 
+
+		foreach ($data as $v) {
+			echo $v . "<br>"; 
+		}
+
+		die(); 
 	}
 
 

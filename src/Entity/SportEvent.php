@@ -116,6 +116,12 @@ class SportEvent
      */
     private $time_end;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\SportCategory", inversedBy="sportEvents")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $sportCategory;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -358,6 +364,19 @@ class SportEvent
     public function setTimeEnd(\DateTimeInterface $time_end): self
     {
         $this->time_end = $time_end;
+
+        return $this;
+    }
+
+    
+    public function getSportCategory(): ?SportCategory
+    {
+        return $this->sportCategory;
+    }
+
+    public function setSportCategory(?SportCategory $sportCategory): self
+    {
+        $this->sportCategory = $sportCategory;
 
         return $this;
     }

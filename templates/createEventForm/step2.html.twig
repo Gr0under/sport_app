@@ -1,10 +1,44 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-	Ajoutons une description à notre event
-	{{ form_start(createEventForm) }}
-	    {{ form_widget(createEventForm) }}
-	    <button type="submit" class="btn btn-primary">Create!</button>
-	{{ form_end(createEventForm) }}
+	{% include('sections/brand_top.html.twig') %}
 
+	<div class="createEventForm">
+		{{ form_start(createEventForm)}}
+		<h2 class="createEventForm__title">décrivez votre évènement</h2>
+
+		<p class="createEventForm__text">Un titre, une description et une image pour donner envie aux autres sportifs de vous rejoindre. </p>
+
+		<h3 class="createEventForm__subtitle">Le titre</h3>
+		<p class="createEventForm__text">Un court titre accrocheur pour saisir en une seconde le but de cette rencontre sportive (sport, parcours, lieu...)</p>
+
+		{{ form_row(createEventForm.title)}}
+
+
+		<h3 class="createEventForm__subtitle">La description</h3>
+		<p class="createEventForm__text">Décrivez ce que vous allez faire, le programme, le but. Donner envie aux autres de participer.</p>
+
+		{{ form_row(createEventForm.description)}}
+
+
+		<h3 class="createEventForm__subtitle">image de présentation</h3>
+		<p class="createEventForm__text">Une belle image pour illustrer cette future rencontre. A sélectionner dans la liste ci-dessous uniquement. </p>
+
+		{{ sport.sportPhotoCollection }}
+
+		<div class="createEventForm__buttons-wrapper">
+			<button type="submit" class="createEventForm__btn-next btn btn-primary">suivant</button>
+		</div>
+
+
+	
+		{{ form_end(createEventForm) }}
+
+
+		
+	</div>
+	
+	{% include("sections/navbar_mobile.html.twig") %}
 {% endblock %}
+
+
