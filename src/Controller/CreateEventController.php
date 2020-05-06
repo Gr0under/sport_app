@@ -56,34 +56,43 @@ class CreateEventController extends AbstractController{
 
 			break;
 
+			// Choix du titre, de la description et de l'image
 			case "description":
+
+				$repository = $em->getRepository(SportCategory::class); 
+				$sportId = $this->session->get("sportEvent")->getSportCategory()->getId();
+				$sport = $repository->findOneBy(['id' => $sportId]); 
 
 				$formStep2 = $this->createform(CreateEventStep2Type::class);
 				$formStep2->handleRequest($request); 
 
 				if($formStep2->isSubmitted() && $formStep2->isValid()){
 
+
+
+
+
 					$data = $formStep2->getData();
+
+					// Vérification que l'URL de l'image envoyée dans le formulaire existe bien dans l'objet SportCategory associé. Sinon, renvoie sur la page du formulaire en question.
+					if(!in_array($data->getThumbnail(), $sport->getThumbnailCollection())){
+						return $this->redirectToRoute("createEvent", ["step"=>"description"]);
+					}
+				
+
 					$this->session->get("sportEvent")
 						->setTitle($data->getTitle())
 						->setDescription($data->getDescription())
+						->setThumbnail($data->getThumbnail())
 
 						;  
+					dump($this->session->get("sportEvent")); die();
 
 					return $this->redirectToRoute("createEvent", ["step"=>"tout-le-reste"]);
 				}
 
-				dump($this->session); 
 
-				$repository = $em->getRepository(SportCategory::class); 
 
-				$sportId = $this->session->get("sportEvent")->getSportCategory()->getId();
-
-				dump($sportId); 
-
-				$sport = $repository->findOneBy(['id' => $sportId]); 
-
-				dump($sport); 
 
 				return $this->render("createEventForm/step2.html.twig", [
 					"createEventForm" => $formStep2->createView(),
@@ -97,8 +106,10 @@ class CreateEventController extends AbstractController{
 				$formStep3->handleRequest($request); 
 
 
+					
 
 				if($formStep3->isSubmitted() && $formStep3->isValid()){
+
 
 					$data = $formStep3->getData();
 					$this->session->get('sportEvent')
@@ -175,6 +186,24 @@ class CreateEventController extends AbstractController{
 			echo $v . "<br>"; 
 		}
 
+		die(); 
+	}
+
+
+
+	/**
+	 * @Route("/update-sportcat")
+	 */
+	public function updateSportCat(EntityManagerInterface $em)
+	{
+		$sport = new SportCategory(); 
+		$sport->setSportName('Pétanque')
+			->setThumbnailCollection([
+				"0" => "/img/component/card/thumbnail_petanque.jpg",  
+			]); 
+
+		$em->persist($sport);
+		$em->flush(); 
 		die(); 
 	}
 

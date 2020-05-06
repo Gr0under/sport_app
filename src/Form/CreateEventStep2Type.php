@@ -3,10 +3,12 @@
 namespace App\Form;
 
 use App\Entity\SportEvent;
+use App\Entity\SportCategory;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 class CreateEventStep2Type extends AbstractType
 {
@@ -24,6 +26,8 @@ class CreateEventStep2Type extends AbstractType
                     'class' => 'createEventForm__textArea',
                 ],
             ])
+
+            ->add('thumbnail', HiddenType::class)
         ;
     }
 

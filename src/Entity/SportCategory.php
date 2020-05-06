@@ -23,15 +23,17 @@ class SportCategory
      */
     private $sport_name;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $sport_photo_collection ;
+  
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\SportEvent", mappedBy="sportCategory")
      */
     private $sportEvents;
+
+    /**
+     * @ORM\Column(type="array")
+     */
+    private $thumbnail_collection = [];
 
     public function __construct()
     {
@@ -55,17 +57,7 @@ class SportCategory
         return $this;
     }
 
-    public function getSportPhotoCollection(): ?string
-    {
-        return $this->sport_photo_collection;
-    }
 
-    public function setSportPhotoCollection(string $sport_photo_collection): self
-    {
-        $this->sport_photo_collection = $sport_photo_collection;
-
-        return $this;
-    }
 
     /**
      * @return Collection|SportEvent[]
@@ -94,6 +86,18 @@ class SportCategory
                 $sportEvent->setSportCategory(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getThumbnailCollection(): ?array
+    {
+        return $this->thumbnail_collection;
+    }
+
+    public function setThumbnailCollection(array $thumbnail_collection): self
+    {
+        $this->thumbnail_collection = $thumbnail_collection;
 
         return $this;
     }
