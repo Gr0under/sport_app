@@ -1,10 +1,133 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
-	Entrer tout le reste de ce form
-	{{ form_start(createEventForm) }}
-	    {{ form_widget(createEventForm) }}
-	    <button type="submit" class="btn btn-primary">Create!</button>
-	{{ form_end(createEventForm) }}
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+{% endblock %}
 
+{% block body %}
+	{% include('sections/brand_top.html.twig') %}
+
+	<div class="createEventForm">
+
+		{{ form_start(createEventForm) }}
+
+			<h2 class="createEventForm__title">ou et quand ?</h2>
+			<p class="createEventForm__text">Définissez le lieu, la date et la plage horaire de votre évènement.</p>
+
+			<h3 class="createEventForm__subtitle">Votre ville</h3>
+			<p class="createEventForm__text">Sélectionner votre ville dans la liste déroulante de choix en tapant les premières lettres</p>
+			{{ form_row(createEventForm.location_city)}}
+			<ul id="cityList" class"addressList">
+			</ul>
+
+			<h3 class="createEventForm__subtitle">Le point de rendez-vous</h3>
+			<p class="createEventForm__text">Renseigner l’adresse exacte du point de rendez-vous de votre évènement et donner des précisions si besoin pour que l’on vous rejoigne facilement.</p>
+			{{ form_row(createEventForm.location_address)}}
+			<ul id="cityList">
+			</ul>
+
+			<h3 class="createEventForm__subtitle">La date</h3>
+			<p class="createEventForm__text">Choisissez la date à laquelle votre évènement aura lieu</p>
+			{{ form_row(createEventForm.date)}}
+
+			<h3 class="createEventForm__subtitle">L'heure</h3>
+			<p class="createEventForm__text">Indiquez l’heure de début et l’heure de fin de votre évènement.</p>
+
+			<div class="createEventForm__timePickr">
+				{{ form_row(createEventForm.time_start)}}
+				<span>à</span>
+				{{ form_row(createEventForm.time_end)}}
+			</div>
+
+			
+			<div class="createEventForm__buttons-wrapper">
+				<button type="submit" class="createEventForm__btn-next btn btn-primary">suivant</button>
+			</div>
+
+
+		{{ form_end(createEventForm) }}
+	</div>
+{% include("sections/navbar_mobile.html.twig") %}
+
+
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+	<script>
+
+		flatpickr(document.getElementById("create_event_step3_date"), {
+			enableTime: false,
+			dateFormat: "d-m-Y",
+			minDate: "today",
+		});
+
+		flatpickr(document.getElementById("create_event_step3_time_start"), {
+			enableTime: true,
+   			noCalendar: true,
+    		dateFormat: "H:i",
+    		time_24hr: true
+		});
+
+		flatpickr(document.getElementById("create_event_step3_time_end"), {
+			enableTime: true,
+   			noCalendar: true,
+    		dateFormat: "H:i",
+    		time_24hr: true
+		});
+
+
+		// AJAX POUR LES VILLES 
+
+		var inputCity = document.getElementById("create_event_step3_location_city");
+
+
+
+		inputCity.addEventListener('input', function(e){
+
+			document.getElementById('cityList').innerHTML =""; 
+
+			var search = e.target.value; 
+
+			search = search.replace(/ /g, "+"); 
+			
+			var request = new XMLHttpRequest();
+
+			request.open("GET", "https://geo.api.gouv.fr/communes?nom="+e.target.value+"&fields=nom,codeDepartement&limit=8");
+
+			request.send(null);
+
+			request.addEventListener("readystatechange", function(){
+				
+				if(request.readyState === XMLHttpRequest.DONE && request.status === 200){
+					
+					var response = JSON.parse(request.responseText); 
+
+					for(var i = 0 ; i < response.length; i++){
+
+						var line = document.createElement("li");
+
+						line.classList.add("createEventForm__cityLine");
+
+						line.appendChild(document.createTextNode(response[i].nom+" ("+response[i].codeDepartement+")"));
+
+						document.getElementById('cityList').appendChild(line); 
+
+						line.addEventListener("click", function(e){
+							document.getElementById("create_event_step3_location_city").value = e.target.innerText;
+							document.getElementById('cityList').innerHTML =""; 
+						});
+
+						
+					}
+				}
+			});
+
+
+		});
+
+	</script>
 {% endblock %}

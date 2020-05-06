@@ -189,6 +189,23 @@ body {
           display: flex;
           align-items: center;
           justify-content: center; }
+  .createEventForm__timePickr {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center; }
+    .createEventForm__timePickr span {
+      margin: 0 1rem; }
+  .createEventForm #cityList {
+    padding: 0;
+    margin-top: 0; }
+  .createEventForm__cityLine {
+    list-style-type: none;
+    padding: 1rem;
+    border: solid 1px #2EC4B6;
+    cursor: pointer; }
+    .createEventForm__cityLine:hover {
+      color: #FDFFFC;
+      background: #2EC4B6; }
 
 .landing_page__title {
   font-family: 'Roboto Condensed', sans-serif;

@@ -86,9 +86,8 @@ class CreateEventController extends AbstractController{
 						->setThumbnail($data->getThumbnail())
 
 						;  
-					dump($this->session->get("sportEvent")); die();
 
-					return $this->redirectToRoute("createEvent", ["step"=>"tout-le-reste"]);
+					return $this->redirectToRoute("createEvent", ["step"=>"date-et-lieu"]);
 				}
 
 
@@ -101,8 +100,11 @@ class CreateEventController extends AbstractController{
 
 			break; 
 
-			case "tout-le-reste": 
+			case "date-et-lieu": 
+
+
 				$formStep3 = $this->createform(CreateEventStep3Type::class);
+
 				$formStep3->handleRequest($request); 
 
 
@@ -112,28 +114,16 @@ class CreateEventController extends AbstractController{
 
 
 					$data = $formStep3->getData();
+
+					
 					$this->session->get('sportEvent')
-						->setOrganiser($data->getOrganiser())
-						->setlocationDpt($data->getlocationDpt())
-						->setlocationCity($data->getlocationCity())
-						->setLocationAddress($data->getLocationAddress())
-						->setThumbnail($data->getThumbnail())
-						->setPlayer($data->getPlayer())
-						->setLevel($data->getLevel())
-						->setLevelDescription($data->getLevelDescription())
-						->setMaterial($data->getMaterial())
-						->setAssemblyPoint($data->getAssemblyPoint())
-						->setPriceDescription($data->getPriceDescription())
-						->setDistance($data->getDistance())
-						->setPace($data->getPace())
-						->setCreatedAt($data->getCreatedAt())
-						->setUpdatedAt($data->getUpdatedAt())
+						->setLocationCity($data->getLocationCity())
 						->setDate($data->getDate())
 						->setTimeStart($data->getTimeStart())
 						->setTimeEnd($data->getTimeEnd());
 					
 
-					dump($this->session->get('sportEvent'));
+					dump($this->session->get('sportEvent')); die();
 
 					if(null !== $this->session->get('sportEvent'))
 					{

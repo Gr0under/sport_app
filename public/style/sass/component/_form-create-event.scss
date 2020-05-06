@@ -88,4 +88,31 @@
 		}
 	}
 
+	&__timePickr{
+		display: flex;
+		justify-content: flex-start; 
+		align-items: center;
+
+		span{
+			margin: 0 1rem;
+		}
+	}
+
+	#cityList{
+		padding: 0;
+		margin-top: 0;
+	}
+
+	&__cityLine{
+		list-style-type: none;
+		padding: 1rem;
+		border: solid 1px $green;
+		cursor: pointer;
+
+		&:hover{
+			color: $white;
+			background: $green;
+		}
+	}
+
 }
