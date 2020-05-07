@@ -11,7 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
-class CreateEventStep3Type extends AbstractType
+class CreateEventStep4Type extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {

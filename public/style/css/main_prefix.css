@@ -188,14 +188,17 @@ body {
         .createEventForm__imgContainer .createEventForm__thumbnail--cover-show {
           display: flex;
           align-items: center;
-          justify-content: center; }
+          justify-content: center;
+          border: solid 3px #FF9F1C; }
+          .createEventForm__imgContainer .createEventForm__thumbnail--cover-show .fa-check-circle {
+            border: none; }
   .createEventForm__timePickr {
     display: flex;
     justify-content: flex-start;
     align-items: center; }
     .createEventForm__timePickr span {
       margin: 0 1rem; }
-  .createEventForm #cityList {
+  .createEventForm #cityList, .createEventForm .addressList {
     padding: 0;
     margin-top: 0; }
   .createEventForm__cityLine {

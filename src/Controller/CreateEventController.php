@@ -13,6 +13,7 @@ use App\Entity\SportCategory;
 use App\Form\CreateEventStep1Type;
 use App\Form\CreateEventStep2Type;
 use App\Form\CreateEventStep3Type;
+use App\Form\CreateEventStep4Type;
 
 class CreateEventController extends AbstractController{
 
@@ -68,10 +69,6 @@ class CreateEventController extends AbstractController{
 
 				if($formStep2->isSubmitted() && $formStep2->isValid()){
 
-
-
-
-
 					$data = $formStep2->getData();
 
 					// Vérification que l'URL de l'image envoyée dans le formulaire existe bien dans l'objet SportCategory associé. Sinon, renvoie sur la page du formulaire en question.
@@ -84,6 +81,7 @@ class CreateEventController extends AbstractController{
 						->setTitle($data->getTitle())
 						->setDescription($data->getDescription())
 						->setThumbnail($data->getThumbnail())
+						->setOrganiser('Paul Juquelier')
 
 						;  
 
@@ -100,15 +98,13 @@ class CreateEventController extends AbstractController{
 
 			break; 
 
+			// Choix de la ville, de l'adresse, de la date et de l'heure du rendez vous
 			case "date-et-lieu": 
 
 
 				$formStep3 = $this->createform(CreateEventStep3Type::class);
 
-				$formStep3->handleRequest($request); 
-
-
-					
+				$formStep3->handleRequest($request); 					
 
 				if($formStep3->isSubmitted() && $formStep3->isValid()){
 
@@ -118,32 +114,49 @@ class CreateEventController extends AbstractController{
 					
 					$this->session->get('sportEvent')
 						->setLocationCity($data->getLocationCity())
+						->setLocationAddress($data->getLocationAddress())
+						->setLocationDescription($data->getLocationDescription())
+						->setLocationDpt($data->getLocationDpt())
 						->setDate($data->getDate())
 						->setTimeStart($data->getTimeStart())
 						->setTimeEnd($data->getTimeEnd());
 					
 
-					dump($this->session->get('sportEvent')); die();
+					// dump($this->session->get('sportEvent')); die();
 
-					if(null !== $this->session->get('sportEvent'))
-					{
-						$em->persist($this->session->get('sportEvent')); 
-						$em->flush();
-					}else{
-						echo "Aucun objet à envoyer en DB"; 
-					}
+					// if(null !== $this->session->get('sportEvent'))
+					// {
+					// 	$em->persist($this->session->get('sportEvent')); 
+					// 	$em->flush();
+					// }else{
+					// 	echo "Aucun objet à envoyer en DB"; 
+					// }
 
-					$this->session->remove('sportEvent');  
-					dump($this->session->get('sportEvent'));
+					// $this->session->remove('sportEvent');  
+					// dump($this->session->get('sportEvent'));
 
-					 die();
-					return $this->redirectToRoute("home");
+					//  die();
+					return $this->redirectToRoute("createEvent", ["step"=>"materiel-prix-niveau"]);
 				}
 
 
 				return $this->render("createEventForm/step3.html.twig", [
 					"createEventForm" => $formStep3->createView(),
 				]);
+			break;
+
+			// Choix du matériel, du prix et du niveau
+			case "materiel-prix-niveau": 
+				$formStep4 = $this->createForm(CreateEventStep4Type::class); 
+				$formStep4->handleRequest($request); 
+
+				if($formStep4->isSubmitted() && $formStep4->isValid()){
+
+				}
+
+				return $this->render('createEventForm/step4.html.twig', [
+					"createEventForm" => $formStep4->createView(),
+				]); 
 			break;
 
 

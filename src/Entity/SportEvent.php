@@ -47,12 +47,17 @@ class SportEvent
     private $location_address;
 
     /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $location_description;
+
+    /**
      * @ORM\Column(type="string", length=255)
      */
     private $thumbnail;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $player;
 
@@ -62,7 +67,7 @@ class SportEvent
     private $level;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $level_description;
 
@@ -70,11 +75,6 @@ class SportEvent
      * @ORM\Column(type="text")
      */
     private $material;
-
-    /**
-     * @ORM\Column(type="text")
-     */
-    private $assembly_point;
 
     /**
      * @ORM\Column(type="text")
@@ -121,6 +121,7 @@ class SportEvent
      * @ORM\JoinColumn(nullable=false)
      */
     private $sportCategory;
+
 
     public function getId(): ?int
     {
@@ -200,6 +201,18 @@ class SportEvent
         return $this;
     }
 
+    public function getLocationDescription(): ?string
+    {
+        return $this->location_description;
+    }
+
+    public function setLocationDescription(?string $location_description): self
+    {
+        $this->location_description = $location_description;
+
+        return $this;
+    }
+
     public function getThumbnail(): ?string
     {
         return $this->thumbnail;
@@ -256,18 +269,6 @@ class SportEvent
     public function setMaterial(string $material): self
     {
         $this->material = $material;
-
-        return $this;
-    }
-
-    public function getAssemblyPoint(): ?string
-    {
-        return $this->assembly_point;
-    }
-
-    public function setAssemblyPoint(string $assembly_point): self
-    {
-        $this->assembly_point = $assembly_point;
 
         return $this;
     }
@@ -380,4 +381,5 @@ class SportEvent
 
         return $this;
     }
+
 }
