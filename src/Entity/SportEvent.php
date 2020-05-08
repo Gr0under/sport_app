@@ -72,24 +72,14 @@ class SportEvent
     private $level_description;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="array", nullable=true)
      */
     private $material;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $price_description;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $distance;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $pace;
 
     /**
      * @ORM\Column(type="datetime")
@@ -121,6 +111,16 @@ class SportEvent
      * @ORM\JoinColumn(nullable=false)
      */
     private $sportCategory;
+
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private $other_attributes = [];
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $max_players;
 
 
     public function getId(): ?int
@@ -261,12 +261,12 @@ class SportEvent
         return $this;
     }
 
-    public function getMaterial(): ?string
+    public function getMaterial(): ?array
     {
         return $this->material;
     }
 
-    public function setMaterial(string $material): self
+    public function setMaterial(array $material): self
     {
         $this->material = $material;
 
@@ -281,30 +281,6 @@ class SportEvent
     public function setPriceDescription(string $price_description): self
     {
         $this->price_description = $price_description;
-
-        return $this;
-    }
-
-    public function getDistance(): ?string
-    {
-        return $this->distance;
-    }
-
-    public function setDistance(?string $distance): self
-    {
-        $this->distance = $distance;
-
-        return $this;
-    }
-
-    public function getPace(): ?string
-    {
-        return $this->pace;
-    }
-
-    public function setPace(?string $pace): self
-    {
-        $this->pace = $pace;
 
         return $this;
     }
@@ -378,6 +354,30 @@ class SportEvent
     public function setSportCategory(?SportCategory $sportCategory): self
     {
         $this->sportCategory = $sportCategory;
+
+        return $this;
+    }
+
+    public function getOtherAttributes(): ?array
+    {
+        return $this->other_attributes;
+    }
+
+    public function setOtherAttributes(?array $other_attributes): self
+    {
+        $this->other_attributes = $other_attributes;
+
+        return $this;
+    }
+
+    public function getMaxPlayers(): ?int
+    {
+        return $this->max_players;
+    }
+
+    public function setMaxPlayers(int $max_players): self
+    {
+        $this->max_players = $max_players;
 
         return $this;
     }

@@ -7,53 +7,77 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
 class CreateEventStep4Type extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-           ->add('location_city', null, [
-              "attr" => ["placeholder"=>"Votre ville"],
-              "label" => false,
-           ])
-           ->add('location_address', TextType::class, [
-              "attr" => ["placeholder"=>"Adresse du rendez-vous"],
-              "label" => false,
-           ])
-
-           ->add('location_description', null, [
-              'label' =>false, 
-              'attr' => [
-                  'placeholder' => 'Donnez des précisions sur le point de rendez-vous pour que l\'on vous retrouve facilement (facultatif)', 
-                  'class' => 'createEventForm__textArea',
+           ->add('material', CollectionType::class, [
+              "entry_type" => TextType::class, 
+              'entry_options' => [
+                  "attr" => [
+                    "placeholder"=>"Un élément de matériel",
+                    "class" => "createEventForm__materialInput", 
+                    "data-materialCount" => "__name__",
+                  ],
+                  "label" => false, 
               ],
-           ])
-
-           ->add('location_dpt', HiddenType::class)
-
-           ->add('date', DateType::class, [
+              'allow_add' => true,
+              "prototype" => true, 
               "label" => false, 
-              "widget" => 'single_text',
-              'html5' => false,
-              "attr" => ["placeholder"=>"Choisir une date"],
-              'format' => 'dd-MM-yyyy',
-           ])
-           ->add('time_start', TimeType::class, [
-              "label" => false, 
-              "widget" => 'single_text',
-              "attr" => ["placeholder"=>"Heure de début"], 
-             
-           ])
-           ->add('time_end', TimeType::class, [
-              "label" => false, 
-              "widget" => 'single_text',
-              "attr" => ["placeholder" => "Heure de fin"],
               
            ])
+
+           ->add('level', ChoiceType::class, [
+              'choices'  => [
+                     'Initiation' => 'Initiation',
+                     'Tous niveaux' => 'Tous niveaux',
+                     'Intermédiaire' => 'Intermédiaire',
+                     'Confirmé' => 'Confirmé',
+                     'Expert' => 'Expert',
+                 ],
+              'expanded' => true, 
+              'label' => false, 
+              'attr' => [ "class" => "createEventForm__group_options"],
+           ])
+
+           ->add('levelDescription', TextareaType::class, [
+              'label' =>false, 
+              'attr' => [
+                  'placeholder' => 'Description du niveau requis pour participer (facultatif)', 
+                  'class' => 'createEventForm__textArea',
+              ],
+              "required" => false, 
+           ])
+
+           ->add('priceDescription', TextareaType::class, [
+
+              'label' =>false, 
+              'attr' => [
+                  'placeholder' => 'Description du coût impliqué par la participation (facultatif)', 
+                  'class' => 'createEventForm__textArea',
+              ],
+              "required" => false,
+
+           ])
+
+           ->add('maxPlayers', NumberType::class, [
+              'label' =>false, 
+              'attr' => [
+                  'placeholder' => 'Nombre total de participants', 
+              ],
+              "required" => true,
+
+           ]); 
+         
            
         ;
     }

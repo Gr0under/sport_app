@@ -13,35 +13,43 @@
 		{{ form_start(createEventForm) }}
 
 			<h2 class="createEventForm__title">à propos de l'évènement</h2>
-			<p class="createEventForm__text">Définissez le lieu, la date et la plage horaire de votre évènement.</p>
+			<p class="createEventForm__text">Quelques informations complémentaires pour donner des précisions sur cette rencontre.</p>
 
-			<h3 class="createEventForm__subtitle">Votre ville</h3>
-			<p class="createEventForm__text">Sélectionner votre ville dans la liste déroulante de choix en tapant les premières lettres</p>
-			{{ form_row(createEventForm.location_city)}}
-			<ul id="cityList" class="addressList">
-			</ul>
+			<h3 class="createEventForm__subtitle">Matériel nécessaire</h3>
+			<p class="createEventForm__text">Ce que les participants doivent absolument amener pour participer à la session, selon votre sport (eau, type de basket, raquette, casque...)</p>
 
-			<h3 class="createEventForm__subtitle">Le point de rendez-vous</h3>
-			<p class="createEventForm__text">Renseigner l’adresse exacte du point de rendez-vous de votre évènement et donner des précisions si besoin pour que l’on vous rejoigne facilement.</p>
-			{{ form_row(createEventForm.location_address)}}
-			<ul id="addressList" class="addressList">
-			</ul>
-
-			{{ form_row(createEventForm.location_description)}}
-
-			<h3 class="createEventForm__subtitle">La date</h3>
-			<p class="createEventForm__text">Choisissez la date à laquelle votre évènement aura lieu</p>
-			{{ form_row(createEventForm.date)}}
-
-			<h3 class="createEventForm__subtitle">L'heure</h3>
-			<p class="createEventForm__text">Indiquez l’heure de début et l’heure de fin de votre évènement.</p>
-
-			<div class="createEventForm__timePickr">
-				{{ form_row(createEventForm.time_start)}}
-				<span>à</span>
-				{{ form_row(createEventForm.time_end)}}
+			<div class="inputMaterialList">
+				{{ form_row(createEventForm.material)}}
 			</div>
+			<div class="createEventForm__addAnotherFieldMaterial"><i class="fas fa-plus-circle"></i></div>
 
+			<h3 class="createEventForm__subtitle">Nombre de participants</h3>
+			<p class="createEventForm__text">Indiquer le nombre maximum de personnes pouvant rejoindre votre évènement (votre participation compte dans ce total)</p>
+
+			{{ form_row(createEventForm.maxPlayers)}}
+
+			
+
+			<h3 class="createEventForm__subtitle">niveau requis</h3>
+			<p class="createEventForm__text">Vous avez la possibilité d’indiquer un niveau pour informer les participants de l’intensité de la sortie.</p>
+
+			{{form_row(createEventForm.level)}}
+		
+			<p class="createEventForm__text">Donner des précisions sur le niveau d’entrainement et le niveau physique attendu des participants.</p>
+
+			{{ form_row(createEventForm.levelDescription)}}
+
+		
+
+			<h3 class="createEventForm__subtitle">Prix</h3>
+
+			<p class="createEventForm__text">Est-ce que votre évènement implique un coût de participation (location d’un terrain où autre). Les sorties proposées sur monsite.com ont une vocation de loisir uniquement. Vous ne pouvez pas demander d’argent aux participants pour rémunération de l’organisation de la sortie.</p>
+
+			<p class="createEventForm__text">Si la sortie a un coût, décrivez la nature de ce coût et comment vous allez le partager. Il sera demandé aux participants d’avoir l’argent avec eux lors de la sortie. <strong>Laissez le champ vide si aucun frais n'est à prévoir.</strong></p>
+
+			{{ form_row(createEventForm.priceDescription)}}
+
+	
 			
 			<div class="createEventForm__buttons-wrapper">
 				<button type="submit" class="createEventForm__btn-next btn btn-primary">suivant</button>
@@ -55,137 +63,71 @@
 
 {% endblock %}
 
+	{# <div id="create_event_step4_material" data-prototype="<div><label for=&quot;create_event_step4_material___name__&quot; class=&quot;required&quot;>__name__label__</label><input type=&quot;text&quot; id=&quot;create_event_step4_material___name__&quot; name=&quot;create_event_step4[material][__name__]&quot; required=&quot;required&quot; placeholder=&quot;Un élément de matériel&quot; /></div>"></div>
+ #}
 {% block javascripts %}
 	{{ parent() }}
-	<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 	<script>
 
-		flatpickr(document.getElementById("create_event_step3_date"), {
-			enableTime: false,
-			dateFormat: "d-m-Y",
-			minDate: "today",
-		});
 
-		flatpickr(document.getElementById("create_event_step3_time_start"), {
-			enableTime: true,
-   			noCalendar: true,
-    		dateFormat: "H:i",
-    		time_24hr: true
-		});
+		document.querySelector('.createEventForm__addAnotherFieldMaterial').addEventListener('click', function(e){
+	
+			var list = document.querySelector('#create_event_step4_material');
 
-		flatpickr(document.getElementById("create_event_step3_time_end"), {
-			enableTime: true,
-   			noCalendar: true,
-    		dateFormat: "H:i",
-    		time_24hr: true
-		});
+			var newInputMaterial = document.createElement('div'); 
 
+			newInputMaterial.classList.add('materialLineGroup'); 
+			newInputMaterial.setAttribute('data-materialcount', list.childNodes.length);  
 
-		// AJAX POUR LES VILLES 
+			var prototype = list.dataset.prototype; 
+			prototype = prototype.replace(/__name__/g, list.childNodes.length); 
 
-		var inputCity = document.getElementById("create_event_step3_location_city");
-
-		var inputAddress = document.getElementById("create_event_step3_location_address");
+			newInputMaterial.innerHTML = prototype;
 
 
 
-		inputCity.addEventListener('input', function(e){
 
-			document.getElementById('cityList').innerHTML =""; 
-
-			var search = e.target.value; 
-
-			search = search.replace(/ /g, "+"); 
 			
-			var request = new XMLHttpRequest();
+			var removeInputMaterial = document.createElement('div');
+			removeInputMaterial.setAttribute('data-materialcount', list.childNodes.length); 
 
-			request.open("GET", "https://geo.api.gouv.fr/communes?nom="+e.target.value+"&fields=nom,codeDepartement&limit=8");
+			removeInputMaterial.innerHTML = "<i data-materialcount="+list.childNodes.length+" class=\"fas fa-minus-circle\"></i>";
 
-			request.send(null);
+			list.appendChild(newInputMaterial) ; 
 
-			request.addEventListener("readystatechange", function(){
-				
-				if(request.readyState === XMLHttpRequest.DONE && request.status === 200){
-					
-					var response = JSON.parse(request.responseText); 
+			newInputMaterial.childNodes[0].childNodes[0].focus(); 
 
-					for(var i = 0 ; i < response.length; i++){
 
-						var line = document.createElement("li");
+			newInputMaterial.appendChild(removeInputMaterial); 
 
-						line.classList.add("createEventForm__cityLine");
+			removeInputMaterial.addEventListener("click", function(e){
 
-						line.appendChild(document.createTextNode(response[i].nom+" ("+response[i].codeDepartement+")"));
+				var count = e.target.dataset.materialcount
 
-						document.getElementById('cityList').appendChild(line); 
+				childToRemove = document.querySelector(".materialLineGroup[data-materialcount=\""+count+"\"]"); 
 
-						line.addEventListener("click", function(e){
-							
-							document.getElementById("create_event_step3_location_city").value = e.target.innerText;
-							document.getElementById('cityList').innerHTML =""; 
-						});
+				list.removeChild(childToRemove); 
+			})
 
-						
-					}
-				}
-			});
 
 
 		});
 
 
-		inputAddress.addEventListener('input', function(e){
 
-			document.getElementById('addressList').innerHTML =""; 
+		// Création d'un contenant pour les éléments du group option level
 
+		var optionContainer = document.createElement("div");
 
-			var search = e.target.value; 
-
-			search = search.replace(/ /g, "+"); 
-			
-			var request = new XMLHttpRequest();
-
-			request.open("GET", "https://api-adresse.data.gouv.fr/search/?q="+search+"&limit=8");
-
-			request.send(null);
-			
-
-			request.addEventListener("readystatechange", function(){
-				
-				if(request.readyState === XMLHttpRequest.DONE && request.status === 200){
-					
-					const response = JSON.parse(request.responseText); 
+		var optionToInsert = document.getElementsByName("create_event_step4[level]");
+		console.log();
 
 
 
-
-					for(var i = 0 ; i < response.features.length; i++){
-						
-						var line = document.createElement("li");
-
-						line.classList.add("createEventForm__cityLine");
-
-						line.appendChild(document.createTextNode(response.features[i].properties.label));
-
-						document.getElementById('addressList').appendChild(line); 
-
-						const department = response.features[i].properties.postcode; 
-
-
-						line.addEventListener("click", function(e){
-							document.getElementById("create_event_step3_location_address").value = e.target.innerText;
-							document.getElementById("create_event_step3_location_dpt").value = department; 
-							document.getElementById('addressList').innerHTML =""; 
-						});
-
-						
-					}
-				}
-			});
-
-
-		});
 
 	</script>
+
+
+	
 {% endblock %}

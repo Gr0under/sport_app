@@ -151,7 +151,26 @@ class CreateEventController extends AbstractController{
 				$formStep4->handleRequest($request); 
 
 				if($formStep4->isSubmitted() && $formStep4->isValid()){
+					$data = $formStep4->getData(); 
+					$this->session->get('sportEvent')
+						->setMaterial($data->getMaterial())
+						->setLevel($data->getLevel())
+						->setMaxPlayers($data->getMaxPlayers())  ; 
+						
+					if($data->getLevelDescription() === null)
+					{
+						$this->session->get('sportEvent')->setLevelDescription("");
+					}else{
+						$this->session->get('sportEvent')->setLevelDescription($data->getLevelDescription());
+					}
 
+					if($data->getPriceDescription() === null)
+					{
+						$this->session->get('sportEvent')->setPriceDescription("");
+					}else{
+						$this->session->get('sportEvent')->setPriceDescription($data->getPriceDescription());
+					}
+					dump($this->session->get('sportEvent')); die(); 
 				}
 
 				return $this->render('createEventForm/step4.html.twig', [
