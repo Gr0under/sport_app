@@ -15,6 +15,12 @@
 		margin-top: 3rem;
 	}
 
+	&__text{
+		&--italic{
+			font-style: italic;
+		}
+	}
+
 	&__textArea{
 		height: 112px !important;
 		padding-top: 1rem;

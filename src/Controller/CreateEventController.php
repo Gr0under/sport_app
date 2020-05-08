@@ -14,6 +14,7 @@ use App\Form\CreateEventStep1Type;
 use App\Form\CreateEventStep2Type;
 use App\Form\CreateEventStep3Type;
 use App\Form\CreateEventStep4Type;
+use App\Form\CreateEventStep5Type;
 
 class CreateEventController extends AbstractController{
 
@@ -170,13 +171,81 @@ class CreateEventController extends AbstractController{
 					}else{
 						$this->session->get('sportEvent')->setPriceDescription($data->getPriceDescription());
 					}
-					dump($this->session->get('sportEvent')); die(); 
+					 
+
+					return $this->redirectToRoute("createEvent", ["step"=>"caracteristiques-complementaires"]);
 				}
 
 				return $this->render('createEventForm/step4.html.twig', [
 					"createEventForm" => $formStep4->createView(),
 				]); 
 			break;
+
+			case "caracteristiques-complementaires" :
+
+				$formStep5 = $this->createForm(CreateEventStep5Type::class); 
+				$formStep5->handleRequest($request); 
+
+				if($formStep5->isSubmitted() && $formStep5->isValid()){
+					$data = $formStep5->getData();
+
+					$this->session->get('sportEvent')
+						->setOtherAttributes($data->getOtherAttributes())
+						; 
+
+
+
+					$sportEvent = new SportEvent(); 
+					$storedEvent = $this->session->get('sportEvent'); 
+
+					$sportRepo = $em->getRepository(SportCategory::class);
+
+					$sportCat = $sportRepo->findOneBy(["id" => $storedEvent->getSportCategory()->getId()]); 
+
+					dump($sportCat); 
+
+
+					$sportEvent->setTitle($storedEvent->getTitle())
+							   ->setDescription($storedEvent->getDescription())
+							   ->setOrganiser($storedEvent->getOrganiser())
+							   ->setLocationDpt($storedEvent->getLocationDpt())
+							   ->setLocationCity($storedEvent->getLocationCity())
+							   ->setLocationAddress($storedEvent->getLocationAddress())
+							   ->setLocationDescription($storedEvent->getLocationDescription())
+							   ->setThumbnail($storedEvent->getThumbnail())
+							   ->setPlayer("")
+							   ->setLevel($storedEvent->getLevel())
+							   ->setLevelDescription($storedEvent->getLevelDescription())
+							   ->setMaterial($storedEvent->getMaterial())
+							   ->setPriceDescription($storedEvent->getPriceDescription())
+							   ->setCreatedAt(new \DateTime("now"))
+							   ->setUpdatedAt(new \DateTime("now"))
+							   ->setDate($storedEvent->getDate())
+							   ->setTimeStart($storedEvent->getTimeStart())
+							   ->setTimeEnd($storedEvent->getTimeEnd())
+							   ->setSportCategory($sportCat)
+							   ->setOtherAttributes($storedEvent->getOtherAttributes())
+							   ->setMaxPlayers($storedEvent->getMaxPlayers())
+					; 
+
+
+					dump($sportEvent);	
+
+
+					$em->persist($sportEvent);
+					$em->flush(); 
+
+					return $this->redirectToRoute("home"); 
+
+				}
+
+				return $this->render("createEventForm/step5.html.twig", [
+					"createEventForm" => $formStep5->createView(), 
+				]);
+
+
+
+			break; 
 
 
 		}

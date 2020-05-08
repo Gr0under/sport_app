@@ -15,20 +15,36 @@
 	<p class="event__description event__text">{{event.description}}</p>
 	
 	<h2 class="event__subtitle">Lieu / Point de rassemblement</h2>
-	<p class="event__assembly_point event__text">{{event.assemblyPoint}}</p>
+	<p class="event__assembly_point event__text">{{event.locationDescription}}</p>
 	
 	<h2 class="event__subtitle">Matériel Nécessaire</h2>
-	<p class="event__material">{{event.material}}</p>
 	
-	<h2 class="event__subtitle">Participants (x/x)</h2>
+	<ul class="event__material">
+		{% for material in event.material %}
+			<li class="event__material_item">{{material}}</li>
+		{% endfor %}
+	</ul>
+	
+	<h2 class="event__subtitle">Participants (x/{{event.maxPlayers}})</h2>
 	<p class="event__players">{{event.player}} </p>
 	<div class="event__remaining-availabilities">6 places restantes</div>
 	
-	<h2 class="event__subtitle">Prix</h2>
-	<p class="event__price event__text">{{event.priceDescription}} </p>
+	{% if event.priceDescription != "" %}
+		<h2 class="event__subtitle">Prix</h2>
+		<p class="event__price event__text">{{event.priceDescription}} </p>
+	{% endif %}
 	
 	<h2 class="event__subtitle">Niveau Requis</h2>
 	<p class="event__level event__text"><span class="event__level--color-red">{{event.level}}.</span> {{event.levelDescription}}</p>
+
+
+	<h2 class="event__subtitle">Caractéristiques</h2>
+	<ul class="event__material">
+		{% for caracteristic in event.otherAttributes %}
+			<li class="event__material_item">{{caracteristic}}</li>
+		{% endfor %}
+	</ul>
+	
 
 	<a href="#" class="event__cta-participate ">rejoindre</a>
 </section>

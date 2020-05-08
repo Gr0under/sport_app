@@ -129,6 +129,8 @@ body {
     font-size: 18px;
     text-transform: uppercase;
     margin-top: 3rem; }
+  .createEventForm__text--italic {
+    font-style: italic; }
   .createEventForm__textArea {
     height: 112px !important;
     padding-top: 1rem;
