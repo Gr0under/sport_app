@@ -8,16 +8,39 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\SportEvent;
+use App\Entity\User;
+
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface; //pour générer des users en db only
 
 class HomeController extends AbstractController{
 
 	/**
 	 * @Route("/", name="home")
 	 */
-	public function homepage(EntityManagerInterface $em)
+	public function homepage(EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder)
 	{
 		$repository = $em->getRepository(SportEvent::class);
 		$events = $repository->findAll();
+
+
+		// $user = new User();
+		// $user->setEmail('paul.juquelier@gmail.com');
+		// $user->setFirstName('Paul'); 
+		// $user->setPassword($passwordEncoder->encodePassword($user, 'engage'));
+		// $em->persist($user); 
+
+		// $user1 = new User();
+		// $user1->setEmail('alex.boulet@gmail.com');
+		// $user1->setFirstName('Alex'); 
+		// $user1->setPassword($passwordEncoder->encodePassword($user, 'engage')); 
+		// $em->persist($user1);
+
+		// $em->flush(); 
+
+
+
+
+
 		return $this->render("home.html.twig", [
 			"events" => $events
 		]);
