@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+  {{ parent() }}
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+{% endblock %}
+
+{% block body %}
+    {% include('sections/brand_top.html.twig') %}
+
+   <div class="form registerForm">
+
+        {{ form_start(registerForm)}}
+       
+       <h2 class="form__title">Mes informations</h2>
+       <p class="form__text">Les informations demandées ci-dessous sont nécessaires pour finaliser votre inscription. </p>
+
+       {{form_widget(registerForm)}}
+       
+      
+
+
+
+    
+
+         <div class="form__buttons-wrapper form__buttons-wrapper--centered">
+            <button type="submit" class="form__btn-next form__btn--size btn btn-primary">Inscription</button>
+         </div>
+
+       {{ form_end(registerForm)}}
+
+     
+   </div>
+
+
+   
+    {% include("sections/navbar_mobile.html.twig") %}
+
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+  <script>
+
+    flatpickr(document.getElementById("user_infos_birthdate"), {
+      enableTime: false,
+      dateFormat: "d/m/Y",
+     
+    });
+
+   
+  </script>
+{% endblock %}
+
+

@@ -11,10 +11,15 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * @UniqueEntity("email", message="Cet email est déjà utilisé")
+ * @UniqueEntity(
+ *     fields={"email", "pseudo"},
+ *     message="Cet email est déjà utilisé"
+ *   )
  */
 class User implements UserInterface
 {
+    const GENDERS = ['female', 'male', 'other'];
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -25,7 +30,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      * @Assert\Email
-     * @Assert\NotBlank(message="Veuillez saisir un email valide")
+     * @Assert\NotBlank(message="Veuillez saisir un email valide", groups={"registration"})
      */
     private $email;
 
@@ -36,13 +41,48 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     */
-    private $firstName;
-
-    /**
-     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(groups={"registration"})
      */
     private $password;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\NotBlank()
+     */
+    private $fullName;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\NotBlank()
+     */
+    private $pseudo;
+
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     * @Assert\NotBlank()
+     * @Assert\Date
+     * @var string A "d/m/Y" formatted value
+     */
+    private $birthdate;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *      min = 5,
+     *      max = 5,
+     *      minMessage = "Votre code postal doit comporter 5 chiffres uniquement",
+     *      maxMessage = "Votre code postal doit comporter 5 chiffres uniquement",
+     *      allowEmptyString = false
+     * )
+     */
+    private $address;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Choice(choices=User::GENDERS)
+     */
+    private $gender;
 
     public function getId(): ?int
     {
@@ -115,21 +155,70 @@ class User implements UserInterface
         // $this->plainPassword = null;
     }
 
-    public function getFirstName(): ?string
-    {
-        return $this->firstName;
-    }
-
-    public function setFirstName(string $firstName): self
-    {
-        $this->firstName = $firstName;
-
-        return $this;
-    }
 
     public function setPassword(string $password): self
     {
         $this->password = $password;
+
+        return $this;
+    }
+
+    public function getFullName(): ?string
+    {
+        return $this->fullName;
+    }
+
+    public function setFullName(?string $fullName): self
+    {
+        $this->fullName = $fullName;
+
+        return $this;
+    }
+
+    public function getPseudo(): ?string
+    {
+        return $this->pseudo;
+    }
+
+    public function setPseudo(?string $pseudo): self
+    {
+        $this->pseudo = $pseudo;
+
+        return $this;
+    }
+
+    public function getBirthdate(): ?\DateTimeInterface
+    {
+        return $this->birthdate;
+    }
+
+    public function setBirthdate(?\DateTimeInterface $birthdate): self
+    {
+        $this->birthdate = $birthdate;
+
+        return $this;
+    }
+
+    public function getAddress(): ?int
+    {
+        return $this->address;
+    }
+
+    public function setAddress(?int $address): self
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    public function getGender(): ?string
+    {
+        return $this->gender;
+    }
+
+    public function setGender(?string $gender): self
+    {
+        $this->gender = $gender;
 
         return $this;
     }

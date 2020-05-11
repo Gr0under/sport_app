@@ -25,6 +25,9 @@ class CreateEventController extends AbstractController{
 	 */
 	public function createEvent(EntityManagerInterface $em, $step, Request $request, SessionInterface $session )
 	{
+		if ( null !== $this->getUser() && in_array("ROLE_PRE_USER", $this->getUser()->getRoles() ) ) {
+			return $this->redirectToRoute("app_user_infos_setup");
+		}
 
 		$this->session = $session;
 		if($this->session->get("sportEvent") === null)
@@ -84,7 +87,7 @@ class CreateEventController extends AbstractController{
 						->setTitle($data->getTitle())
 						->setDescription($data->getDescription())
 						->setThumbnail($data->getThumbnail())
-						->setOrganiser($this->getUser()->getFirstName())
+						->setOrganiser($this->getUser()->getPseudo())
 
 						;  
 

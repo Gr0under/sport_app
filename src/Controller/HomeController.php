@@ -19,29 +19,12 @@ class HomeController extends AbstractController{
 	 */
 	public function homepage(EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder)
 	{
+
+		if ( null !== $this->getUser() && in_array("ROLE_PRE_USER", $this->getUser()->getRoles() ) ) {
+			return $this->redirectToRoute("app_user_infos_setup");
+		}
 		$repository = $em->getRepository(SportEvent::class);
 		$events = $repository->findAll();
-
-
-
-		// $user = new User();
-		// $user->setEmail('paul.juquelier@hotmail.fr');
-		// $user->setFirstName('Paul'); 
-		// $user->setPassword($passwordEncoder->encodePassword($user, 'engage'));
-		// $user->setRoles(['ROLE_ADMIN']); 
-		// $em->persist($user); 
-
-		// $user1 = new User();
-		// $user1->setEmail('alex.boulet@gmail.com');
-		// $user1->setFirstName('Alex'); 
-		// $user1->setPassword($passwordEncoder->encodePassword($user, 'engage')); 
-		// $em->persist($user1);
-
-		// $em->flush(); 
-
-
-
-
 
 		return $this->render("home.html.twig", [
 			"events" => $events
@@ -61,43 +44,5 @@ class HomeController extends AbstractController{
 		]);
 
 	}
-
-
-
-	/**
-	 * @Route("/register_event")
-	 */
-	public function registerEvent(EntityManagerInterface $em)
-	{
-		$sportEvent = new SportEvent();
-
-		$sportEvent->setTitle('match de basket')
-		->setDescription('Match de basket amical samedi 2 mai au stade Yannick Noah à Cergy le haut. Sur demi terrain ou terrain complet en fonction du nombre de participants. Ouvert à tous mais il serait préférable d’avoir déjà joué au basket avant de vous décider à vous inscrire. ')
-		->setOrganiser('Paul Juk')
-		->setDate(new \DateTime(date("d/m/Y", time()+(2*24*60*60))))
-		->setTimeStart(new \DateTime("now"))
-		->setTimeEnd(new \DateTime("now"))
-		->setLocationDpt('95')
-		->setLocationCity('Cergy Le Haut')
-		->setLocationAddress('8 cours des merveilles 95800 Cergy le haut')
-		->setThumbnail('/img/component/card/thumbnail_basket.jpg')
-		->setPlayer('Paul, Clément, Vincent')
-		->setLevel('Tous niveaux')
-		->setLevelDescription('Attention, ce n’est pas un cours d’initiation. Il est conseillé d’avoir déjà joué pour rejoindre cet évènement.')
-		->setMaterial("Tenue adaptée; Basket d’intérieure; Bouteille d’eau")
-		->setAssemblyPoint("Parking du Stade Yannick Noah à Cergy Le Haut, l’adresse exacte est accessible pour les personnes inscrites.")
-		->setPriceDescription("20€ pour la location du terrain, à diviser en fonction du nombre de participant.")
-		->setCreatedAt(new \DateTime("now"))
-		->setUpdatedAt(new \DateTime("now")) ;
-
-		echo "<pre>";
-		dump($sportEvent); 	
-		echo "</pre>"; 
-
-		$em->persist($sportEvent);
-		$em->flush();
-		die();
-	}
-
 
 }
