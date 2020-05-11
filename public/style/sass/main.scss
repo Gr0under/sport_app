@@ -4,10 +4,13 @@
 @import "base/base";
 
 @import "component/button";
-@import "component/brand-top";
 @import "component/card-event";
-@import "component/navbar-mobile";
-@import "component/form-create-event";
+@import "component/form";
+
+
+@import "layout/brand-top";
+@import "layout/navbar-mobile";
+@import "layout/form-create-event";
 
 
 

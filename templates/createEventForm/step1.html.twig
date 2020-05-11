@@ -3,18 +3,18 @@
 {% block body %}
 	{% include('sections/brand_top.html.twig') %}
 
-	<div class="createEventForm">
+	<div class="createEventForm form">
 		{{ form_start(createEventForm)}}
-		<h2 class="createEventForm__title">Créer un évènement</h2>
+		<h2 class="form__title">Créer un évènement</h2>
 
-		<p class="createEventForm__text">Laissez vous guider par le formulaire pour créer votre prochaine rencontre sportive.</p>
+		<p class="form__text">Laissez vous guider par le formulaire pour créer votre prochaine rencontre sportive.</p>
 
-		<h3 class="createEventForm__subtitle">Choisir mon sport</h3>
-		<p class="createEventForm__text">Sélectionner votre sport dans la liste déroulante de choix</p>
+		<h3 class="form__subtitle">Choisir mon sport</h3>
+		<p class="form__text">Sélectionner votre sport dans la liste déroulante de choix</p>
 
 		{{form_row(createEventForm.sportCategory)}}
-		<div class="createEventForm__buttons-wrapper">
-			<button type="submit" class="createEventForm__btn-next btn btn-primary">suivant</button>
+		<div class="form__buttons-wrapper">
+			<button type="submit" class="form__btn-next btn btn-primary">suivant</button>
 		</div>
 		{{ form_end(createEventForm) }}
 

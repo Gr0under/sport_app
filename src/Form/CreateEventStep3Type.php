@@ -29,7 +29,7 @@ class CreateEventStep3Type extends AbstractType
               'label' =>false, 
               'attr' => [
                   'placeholder' => 'Donnez des précisions sur le point de rendez-vous pour que l\'on vous retrouve facilement (facultatif)', 
-                  'class' => 'createEventForm__textArea',
+                  'class' => 'form__textArea',
               ],
            ])
 

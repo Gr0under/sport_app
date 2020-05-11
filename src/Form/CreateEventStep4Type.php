@@ -25,7 +25,7 @@ class CreateEventStep4Type extends AbstractType
               'entry_options' => [
                   "attr" => [
                     "placeholder"=>"Un élément de matériel",
-                    "class" => "createEventForm__materialInput", 
+                    "class" => "form__addedFieldGroup--input", 
                     "data-materialCount" => "__name__",
                   ],
                   "label" => false, 
@@ -46,14 +46,14 @@ class CreateEventStep4Type extends AbstractType
                  ],
               'expanded' => true, 
               'label' => false, 
-              'attr' => [ "class" => "createEventForm__group_options"],
+              'attr' => [ "class" => "form__group_options"],
            ])
 
            ->add('levelDescription', TextareaType::class, [
               'label' =>false, 
               'attr' => [
                   'placeholder' => 'Description du niveau requis pour participer (facultatif)', 
-                  'class' => 'createEventForm__textArea',
+                  'class' => 'form__textArea',
               ],
               "required" => false, 
            ])
@@ -63,7 +63,7 @@ class CreateEventStep4Type extends AbstractType
               'label' =>false, 
               'attr' => [
                   'placeholder' => 'Description du coût impliqué par la participation (facultatif)', 
-                  'class' => 'createEventForm__textArea',
+                  'class' => 'form__textArea',
               ],
               "required" => false,
 

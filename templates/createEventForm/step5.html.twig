@@ -8,27 +8,27 @@
 {% block body %}
 	{% include('sections/brand_top.html.twig') %}
 
-	<div class="createEventForm">
+	<div class="createEventForm form">
 
 		{{ form_start(createEventForm) }}
 
-			<h2 class="createEventForm__title">Caractéristiques complémentaires</h2>
-			<p class="createEventForm__text">Dans cette dernière section facultative, vous pouvez préciser des caractéristiques propres à votre sport (distance, allure moyenne, dénivelé...)</p>
+			<h2 class="form__title">Caractéristiques complémentaires</h2>
+			<p class="form__text">Dans cette dernière section facultative, vous pouvez préciser des caractéristiques propres à votre sport (distance, allure moyenne, dénivelé...)</p>
 
-			<h3 class="createEventForm__subtitle">Vos caractéristiques</h3>
-			<p class="createEventForm__text">Ajouter des caractéristiques et leurs valeurs associées. <br>Exemple : <span class="createEventForm__text--italic">Distance : 10km</span></p>
+			<h3 class="form__subtitle">Vos caractéristiques</h3>
+			<p class="form__text">Ajouter des caractéristiques et leurs valeurs associées. <br>Exemple : <span class="form__text--italic">Distance : 10km</span></p>
 
 
-			<div class="inputMaterialList">
+			<div class="form__inputFieldContainer">
 				{{ form_row(createEventForm.other_attributes)}}
 			</div>
-			<div class="createEventForm__addAnotherFieldMaterial"><i class="fas fa-plus-circle"></i></div>
+			<div class="form__addFieldBtn"><i class="fas fa-plus-circle"></i></div>
 
 			
 	
 			
-			<div class="createEventForm__buttons-wrapper">
-				<button type="submit" class="createEventForm__btn-next btn btn-primary">publier</button>
+			<div class="form__buttons-wrapper">
+				<button type="submit" class="form__btn-next btn btn-primary">publier</button>
 			</div>
 
 
@@ -44,13 +44,13 @@
 
 	<script>
 
-		document.querySelector('.createEventForm__addAnotherFieldMaterial').addEventListener('click', function(e){
+		document.querySelector('.form__addFieldBtn').addEventListener('click', function(e){
 	
 			var list = document.querySelector('#create_event_step5_other_attributes');
 
 			var newInputMaterial = document.createElement('div'); 
 
-			newInputMaterial.classList.add('materialLineGroup'); 
+			newInputMaterial.classList.add('form__addedFieldGroup'); 
 			newInputMaterial.setAttribute('data-materialcount', list.childNodes.length);  
 
 			var prototype = list.dataset.prototype; 
@@ -78,7 +78,7 @@
 
 				var count = e.target.dataset.materialcount
 
-				childToRemove = document.querySelector(".materialLineGroup[data-materialcount=\""+count+"\"]"); 
+				childToRemove = document.querySelector(".form__addedFieldGroup[data-materialcount=\""+count+"\"]"); 
 
 				list.removeChild(childToRemove); 
 			})

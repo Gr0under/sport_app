@@ -88,7 +88,7 @@ class CreateEventController extends AbstractController{
 
 						;  
 
-						dd($this->session->get("sportEvent"));
+						
 
 					return $this->redirectToRoute("createEvent", ["step"=>"date-et-lieu"]);
 				}

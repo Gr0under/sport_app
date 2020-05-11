@@ -1,21 +1,18 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-	{% include('sections/brand_top.html.twig') %}
-
-	<h2 class="createEventForm__title">Connexion</h2>
-
-	<label for="inputEmail" class="sr-only">Email address</label>
-	<input type="email" name="email" id="inputEmail" value="{{last_username}}" class="form-control" placeholder="Email address" required autofocus>
+    {% include('sections/brand_top.html.twig') %}
 
 
 
-
-  <form class="form-signin" method="post">
+<div class="form">
+    <h2 class="form__title">Connexion</h2>
+    <form class="form-signin" method="post">
          {% if error %}
              <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
          {% endif %}
-         <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+    <label for="inputEmail" class="sr-only">Email address</label>
+    <input type="email" name="email" id="inputEmail" value="{{last_username}}" class="form-control" placeholder="Email address" required autofocus>
          <label for="inputPassword" class="sr-only">Password</label>
          <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
          <div class="checkbox mb-3">
@@ -29,5 +26,10 @@
 
          <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
      </form>
-     {% include("sections/navbar_mobile.html.twig") %}
+    {% include("sections/navbar_mobile.html.twig") %}
+
+</div>
+
 {% endblock %}
+
+

@@ -23,7 +23,7 @@ class CreateEventStep2Type extends AbstractType
                 'label' =>false, 
                 'attr' => [
                     'placeholder' => 'Description de l\'évènement',
-                    'class' => 'createEventForm__textArea',
+                    'class' => 'form__textArea',
                 ],
             ])
 

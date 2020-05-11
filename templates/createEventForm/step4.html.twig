@@ -8,51 +8,51 @@
 {% block body %}
 	{% include('sections/brand_top.html.twig') %}
 
-	<div class="createEventForm">
+	<div class="createEventForm form">
 
 		{{ form_start(createEventForm) }}
 
-			<h2 class="createEventForm__title">à propos de l'évènement</h2>
-			<p class="createEventForm__text">Quelques informations complémentaires pour donner des précisions sur cette rencontre.</p>
+			<h2 class="form__title">à propos de l'évènement</h2>
+			<p class="form__text">Quelques informations complémentaires pour donner des précisions sur cette rencontre.</p>
 
-			<h3 class="createEventForm__subtitle">Matériel nécessaire</h3>
-			<p class="createEventForm__text">Ce que les participants doivent absolument amener pour participer à la session, selon votre sport (eau, type de basket, raquette, casque...)</p>
+			<h3 class="form__subtitle">Matériel nécessaire</h3>
+			<p class="form__text">Ce que les participants doivent absolument amener pour participer à la session, selon votre sport (eau, type de basket, raquette, casque...)</p>
 
-			<div class="inputMaterialList">
+			<div class="form__inputFieldContainer">
 				{{ form_row(createEventForm.material)}}
 			</div>
-			<div class="createEventForm__addAnotherFieldMaterial"><i class="fas fa-plus-circle"></i></div>
+			<div class="form__addFieldBtn"><i class="fas fa-plus-circle"></i></div>
 
-			<h3 class="createEventForm__subtitle">Nombre de participants</h3>
-			<p class="createEventForm__text">Indiquer le nombre maximum de personnes pouvant rejoindre votre évènement (votre participation compte dans ce total)</p>
+			<h3 class="form__subtitle">Nombre de participants</h3>
+			<p class="form__text">Indiquer le nombre maximum de personnes pouvant rejoindre votre évènement (votre participation compte dans ce total)</p>
 
 			{{ form_row(createEventForm.maxPlayers)}}
 
 			
 
-			<h3 class="createEventForm__subtitle">niveau requis</h3>
-			<p class="createEventForm__text">Vous avez la possibilité d’indiquer un niveau pour informer les participants de l’intensité de la sortie.</p>
+			<h3 class="form__subtitle">niveau requis</h3>
+			<p class="form__text">Vous avez la possibilité d’indiquer un niveau pour informer les participants de l’intensité de la sortie.</p>
 
 			{{form_row(createEventForm.level)}}
 		
-			<p class="createEventForm__text">Donner des précisions sur le niveau d’entrainement et le niveau physique attendu des participants.</p>
+			<p class="form__text">Donner des précisions sur le niveau d’entrainement et le niveau physique attendu des participants.</p>
 
 			{{ form_row(createEventForm.levelDescription)}}
 
 		
 
-			<h3 class="createEventForm__subtitle">Prix</h3>
+			<h3 class="form__subtitle">Prix</h3>
 
-			<p class="createEventForm__text">Est-ce que votre évènement implique un coût de participation (location d’un terrain où autre). Les sorties proposées sur monsite.com ont une vocation de loisir uniquement. Vous ne pouvez pas demander d’argent aux participants pour rémunération de l’organisation de la sortie.</p>
+			<p class="form__text">Est-ce que votre évènement implique un coût de participation (location d’un terrain où autre). Les sorties proposées sur monsite.com ont une vocation de loisir uniquement. Vous ne pouvez pas demander d’argent aux participants pour rémunération de l’organisation de la sortie.</p>
 
-			<p class="createEventForm__text">Si la sortie a un coût, décrivez la nature de ce coût et comment vous allez le partager. Il sera demandé aux participants d’avoir l’argent avec eux lors de la sortie. <strong>Laissez le champ vide si aucun frais n'est à prévoir.</strong></p>
+			<p class="form__text">Si la sortie a un coût, décrivez la nature de ce coût et comment vous allez le partager. Il sera demandé aux participants d’avoir l’argent avec eux lors de la sortie. <strong>Laissez le champ vide si aucun frais n'est à prévoir.</strong></p>
 
 			{{ form_row(createEventForm.priceDescription)}}
 
 	
 			
-			<div class="createEventForm__buttons-wrapper">
-				<button type="submit" class="createEventForm__btn-next btn btn-primary">suivant</button>
+			<div class="form__buttons-wrapper">
+				<button type="submit" class="form__btn-next btn btn-primary">suivant</button>
 			</div>
 
 
@@ -70,13 +70,13 @@
 	<script>
 
 
-		document.querySelector('.createEventForm__addAnotherFieldMaterial').addEventListener('click', function(e){
+		document.querySelector('.form__addFieldBtn').addEventListener('click', function(e){
 	
 			var list = document.querySelector('#create_event_step4_material');
 
 			var newInputMaterial = document.createElement('div'); 
 
-			newInputMaterial.classList.add('materialLineGroup'); 
+			newInputMaterial.classList.add('form__addedFieldGroup'); 
 			newInputMaterial.setAttribute('data-materialcount', list.childNodes.length);  
 
 			var prototype = list.dataset.prototype; 
@@ -104,7 +104,7 @@
 
 				var count = e.target.dataset.materialcount
 
-				childToRemove = document.querySelector(".materialLineGroup[data-materialcount=\""+count+"\"]"); 
+				childToRemove = document.querySelector(".form__addedFieldGroup[data-materialcount=\""+count+"\"]"); 
 
 				list.removeChild(childToRemove); 
 			})

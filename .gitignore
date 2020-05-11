@@ -21,3 +21,5 @@
 ###< symfony/web-server-bundle ###
 
 public/style/css/main_prefix.css
+
+public/style/css/main_prefix.css

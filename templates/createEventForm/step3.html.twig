@@ -8,43 +8,43 @@
 {% block body %}
 	{% include('sections/brand_top.html.twig') %}
 
-	<div class="createEventForm">
+	<div class="createEventForm form">
 
 		{{ form_start(createEventForm) }}
 
-			<h2 class="createEventForm__title">où et quand ?</h2>
-			<p class="createEventForm__text">Définissez le lieu, la date et la plage horaire de votre évènement.</p>
+			<h2 class="form__title">où et quand ?</h2>
+			<p class="form__text">Définissez le lieu, la date et la plage horaire de votre évènement.</p>
 
-			<h3 class="createEventForm__subtitle">Votre ville</h3>
-			<p class="createEventForm__text">Sélectionner votre ville dans la liste déroulante de choix en tapant les premières lettres</p>
+			<h3 class="form__subtitle">Votre ville</h3>
+			<p class="form__text">Sélectionner votre ville dans la liste déroulante de choix en tapant les premières lettres</p>
 			{{ form_row(createEventForm.location_city)}}
-			<ul id="cityList" class="addressList">
+			<ul id="cityList" class="form__selectList">
 			</ul>
 
-			<h3 class="createEventForm__subtitle">Le point de rendez-vous</h3>
-			<p class="createEventForm__text">Renseigner l’adresse exacte du point de rendez-vous de votre évènement et donner des précisions si besoin pour que l’on vous rejoigne facilement.</p>
+			<h3 class="form__subtitle">Le point de rendez-vous</h3>
+			<p class="form__text">Renseigner l’adresse exacte du point de rendez-vous de votre évènement et donner des précisions si besoin pour que l’on vous rejoigne facilement.</p>
 			{{ form_row(createEventForm.location_address)}}
-			<ul id="addressList" class="addressList">
+			<ul id="addressList" class="form__selectList">
 			</ul>
 
 			{{ form_row(createEventForm.location_description)}}
 
-			<h3 class="createEventForm__subtitle">La date</h3>
-			<p class="createEventForm__text">Choisissez la date à laquelle votre évènement aura lieu</p>
+			<h3 class="form__subtitle">La date</h3>
+			<p class="form__text">Choisissez la date à laquelle votre évènement aura lieu</p>
 			{{ form_row(createEventForm.date)}}
 
-			<h3 class="createEventForm__subtitle">L'heure</h3>
-			<p class="createEventForm__text">Indiquez l’heure de début et l’heure de fin de votre évènement.</p>
+			<h3 class="form__subtitle">L'heure</h3>
+			<p class="form__text">Indiquez l’heure de début et l’heure de fin de votre évènement.</p>
 
-			<div class="createEventForm__timePickr">
+			<div class="form__timePickr">
 				{{ form_row(createEventForm.time_start)}}
 				<span>à</span>
 				{{ form_row(createEventForm.time_end)}}
 			</div>
 
 			
-			<div class="createEventForm__buttons-wrapper">
-				<button type="submit" class="createEventForm__btn-next btn btn-primary">suivant</button>
+			<div class="form__buttons-wrapper">
+				<button type="submit" class="form__btn-next btn btn-primary">suivant</button>
 			</div>
 
 
@@ -114,7 +114,7 @@
 
 						var line = document.createElement("li");
 
-						line.classList.add("createEventForm__cityLine");
+						line.classList.add("form__selectList__line");
 
 						line.appendChild(document.createTextNode(response[i].nom+" ("+response[i].codeDepartement+")"));
 
@@ -164,7 +164,7 @@
 						
 						var line = document.createElement("li");
 
-						line.classList.add("createEventForm__cityLine");
+						line.classList.add("form__selectList__line");
 
 						line.appendChild(document.createTextNode(response.features[i].properties.label));
 

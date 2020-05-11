@@ -26,7 +26,7 @@ class CreateEventStep5Type extends AbstractType
               'entry_options' => [
                   "attr" => [
                     "placeholder"=>"Votre caractéristique et sa valeur associée",
-                    "class" => "createEventForm__materialInput", 
+                    "class" => "form__addedFieldGroup--input", 
                     "data-materialCount" => "__name__",
                   ],
                   "label" => false, 
