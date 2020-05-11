@@ -6,6 +6,10 @@
 		font-size: 1.5rem;
 		text-transform: uppercase;
 		margin-bottom: 0;
+
+		&--mb{
+			margin-bottom: 2rem;
+		}
 	}
 
 	&__subtitle{
@@ -19,6 +23,13 @@
 		&--italic{
 			font-style: italic;
 		}
+	}
+
+	&__error{
+		margin-bottom: 0.5rem;
+		color: $red;
+		font-size: 14px;
+		font-weight: $roboto-medium;
 	}
 
 	&__textArea{
@@ -84,6 +95,12 @@
 		margin-bottom: 1rem;
 		margin-top: 3rem;
 
+		&--centered{
+			justify-content: center;
+			margin-bottom: 2rem;
+			margin-top: 1.5rem;
+		}
+
 
 
 	}
@@ -99,6 +116,11 @@
 		}
 		&::-moz-focus-inner{ 
 			border:none;
+		}
+
+		&--size{
+			padding: 0.7rem 2rem;
+			font-size: 1.2rem;
 		}
 	}
 

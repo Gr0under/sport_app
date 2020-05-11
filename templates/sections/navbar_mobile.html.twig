@@ -18,9 +18,20 @@
 		</a>
 	</div>
 	<div class="navbarMobile__link-group">
-		<a href="{{path("app_login")}}" class="navbarMobile__link">
-			<i class="fas fa-user navbarMobile__icon"></i><br>
-			connexion
-		</a>
+		{% if is_granted('ROLE_USER') %}
+
+			<a href="#" class="navbarMobile__link">
+				<i class="fas fa-user navbarMobile__icon"></i><br>
+				Mon compte
+			</a>
+			
+			{% else %}
+
+			<a href="{{path("app_login")}}" class="navbarMobile__link">
+				<i class="fas fa-user navbarMobile__icon"></i><br>
+				connexion
+			</a>
+
+		{% endif %}
 	</div>
 </div>

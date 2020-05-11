@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% include('sections/brand_top.html.twig') %}
+
+   <div class="form registerForm">
+
+        {{ form_start(registerForm)}}
+       
+       <h2 class="form__title">Inscription</h2>
+       <p class="form__text">Votre adresse e-mail et le choix d’un mot de passe suffise pour démarrer.</p>
+       
+      
+
+       {{ form_row(registerForm.email) }}
+       
+       {{ form_row(registerForm.password) }}
+
+
+       <p class="form__text">Un email de confirmation vous sera envoyé pour valider votre compte.</p>
+
+         <div class="form__buttons-wrapper form__buttons-wrapper--centered">
+            <button type="submit" class="form__btn-next form__btn--size btn btn-primary">Je m'inscris</button>
+         </div>
+
+       {{ form_end(registerForm)}}
+
+       <p>Vous avez déjà un compte ? <a href="{{path('app_login')}}" class="connectLink registrationPage__link">Connexion</a></p>
+
+   </div>
+
+
+   
+    {% include("sections/navbar_mobile.html.twig") %}
+
+</div>
+
+{% endblock %}
+
+

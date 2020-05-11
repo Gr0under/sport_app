@@ -1,15 +1,10 @@
-.form{
-	&__title{
-		margin-bottom: 2rem;
-	}
+.form {
+
 
 	#inputEmail, #inputPassword{
 		margin-bottom: 1rem;
 	}
 
-	&__buttons-wrapper{
-		justify-content: center;
-	}
 
 	&__btn--size{
 		padding: 0.7rem 2rem;
@@ -21,10 +16,6 @@
 		height: inherit;
 	}
 
-	&__buttons-wrapper{
-		margin-bottom: 2rem;
-		margin-top: 1.5rem;
-	}
 
 }
 
