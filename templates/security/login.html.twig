@@ -15,17 +15,23 @@
     <input type="email" name="email" id="inputEmail" value="{{last_username}}" class="form-control" placeholder="Email address" required autofocus>
          <label for="inputPassword" class="sr-only">Password</label>
          <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
-         <div class="checkbox mb-3">
-             <label>
-                 <input type="checkbox" name="_remember_me"> Remember me
-             </label>
-         </div>
-         <button class="btn btn-lg btn-primary btn-block" type="submit">
-             Sign in
-         </button>
 
+         <label>
+             <input type="checkbox" name="_remember_me"> Me reconnecter automatiquement
+         </label>
+      
+
+         <div class="form__buttons-wrapper">
+            <button type="submit" class="form__btn-next form__btn--size btn btn-primary">Connexion</button>
+         </div>
+
+         
+         
          <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
      </form>
+
+     <a href="#" class="forgottenPasswordLink loginPage__link">Mot de passe oublié ?</a>
+     <p>Vous n’avez pas de compte ? <a href="" class="registrationLink loginPage__link">Inscription</a></p>
     {% include("sections/navbar_mobile.html.twig") %}
 
 </div>

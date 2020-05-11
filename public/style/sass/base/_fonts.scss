@@ -1,9 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@1,700&family=Roboto:ital,wght@0,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@1,700&family=Roboto:wght@400;500;700&display=swap');
 
 
+$roboto: 'Roboto';
+$roboto-regular: 400;
+$roboto-medium: 500;
+$roboto-bold:700;
+
+$robotoCondensed: 'Roboto Condensed';
+$robotoCondensed-bold: 700;
 
 body{
-	font-family: 'Roboto', sans-serif;
+	font-family: $roboto, sans-serif;
 }
 
 
