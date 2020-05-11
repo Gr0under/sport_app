@@ -23,10 +23,12 @@ class HomeController extends AbstractController{
 		$events = $repository->findAll();
 
 
+
 		// $user = new User();
-		// $user->setEmail('paul.juquelier@gmail.com');
+		// $user->setEmail('paul.juquelier@hotmail.fr');
 		// $user->setFirstName('Paul'); 
 		// $user->setPassword($passwordEncoder->encodePassword($user, 'engage'));
+		// $user->setRoles(['ROLE_ADMIN']); 
 		// $em->persist($user); 
 
 		// $user1 = new User();

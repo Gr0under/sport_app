@@ -19,6 +19,8 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface; //pour
 
 use App\Repository\UserRepository;
 
+use Symfony\Component\Security\Http\Util\TargetPathTrait; //Redirection après la connexion vers une page consultée anonymement qui avait besoin d'un accès spécifique
+
 use Symfony\Component\HttpFoundation\RedirectResponse; 
 
 class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
@@ -27,6 +29,8 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     private $routerInterface;  
     private $csrfTokenManager;  
     private $passwordEncoder; 
+
+    use TargetPathTrait; //Appel au service targetPathTrait qui nous donne accès à ses méthodes.
 
     // On initialise le repo user dans le constructeur de la classe pour pouvoir effectuer des appels en DB depuis les autres méthodes de la classe. 
     public function __construct(UserRepository $userRepository, RouterInterface $routerInterface, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder )
@@ -92,7 +96,11 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     {
         // todo
        
+        if($targetPath = $this->getTargetPath($request->getSession(), $providerKey))
+        {
+            return new RedirectResponse($targetPath); 
 
+        }
         // Permet de retourner sur une URL de l'app comme redirectToRoute dans un Controller. Implémenter routerInterface dans le constructeur de la class pour pouvoir appeler les url par leur nom ('home dans le cas présent.')
         return new RedirectResponse($this->routerInterface->generate('home')); 
     }

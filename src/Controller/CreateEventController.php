@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted; //check les roles en annotation
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\SportEvent;
 use App\Entity\SportCategory;
@@ -20,6 +21,7 @@ class CreateEventController extends AbstractController{
 
 	/**
 	 * @Route("/creer-un-evenement/{step}", name="createEvent")
+	 * @IsGranted("ROLE_USER")
 	 */
 	public function createEvent(EntityManagerInterface $em, $step, Request $request, SessionInterface $session )
 	{
@@ -82,9 +84,11 @@ class CreateEventController extends AbstractController{
 						->setTitle($data->getTitle())
 						->setDescription($data->getDescription())
 						->setThumbnail($data->getThumbnail())
-						->setOrganiser('Paul Juquelier')
+						->setOrganiser($this->getUser()->getFirstName())
 
 						;  
+
+						dd($this->session->get("sportEvent"));
 
 					return $this->redirectToRoute("createEvent", ["step"=>"date-et-lieu"]);
 				}
