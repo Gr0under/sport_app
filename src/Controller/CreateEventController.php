@@ -87,7 +87,7 @@ class CreateEventController extends AbstractController{
 						->setTitle($data->getTitle())
 						->setDescription($data->getDescription())
 						->setThumbnail($data->getThumbnail())
-						->setOrganiser($this->getUser()->getPseudo())
+						->setOrganiser($this->getUser())
 
 						;  
 
@@ -214,13 +214,13 @@ class CreateEventController extends AbstractController{
 
 					$sportEvent->setTitle($storedEvent->getTitle())
 							   ->setDescription($storedEvent->getDescription())
-							   ->setOrganiser($storedEvent->getOrganiser())
+							   ->setOrganiser($this->getUser())
 							   ->setLocationDpt($storedEvent->getLocationDpt())
 							   ->setLocationCity($storedEvent->getLocationCity())
 							   ->setLocationAddress($storedEvent->getLocationAddress())
 							   ->setLocationDescription($storedEvent->getLocationDescription())
 							   ->setThumbnail($storedEvent->getThumbnail())
-							   ->setPlayer("")
+							   ->addPlayer($this->getUser())
 							   ->setLevel($storedEvent->getLevel())
 							   ->setLevelDescription($storedEvent->getLevelDescription())
 							   ->setMaterial($storedEvent->getMaterial())

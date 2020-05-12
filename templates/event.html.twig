@@ -5,48 +5,66 @@
 {% block body %}
 	{% include('sections/brand_top.html.twig') %}
 
-
+	
 
 <section class="event">
 	<img src=" {{asset(event.thumbnail)}} " alt="" class="event__thumbnail">
 	
 	<h1 class="event__title">{{event.title}}</h1>
-	<span class="event__organiser event__text">Organisé par : {{event.organiser}}</span>
+	<span class="event__organiser event__text">Organisé par : {{event.organiser.pseudo}}</span>
 	<p class="event__description event__text">{{event.description}}</p>
 	
-	<h2 class="event__subtitle">Lieu / Point de rassemblement</h2>
-	<p class="event__assembly_point event__text">{{event.locationDescription}}</p>
+
+	{% if event.locationDescription %}
+		<h2 class="event__subtitle">Lieu / Point de rassemblement</h2>
+		<p class="event__assembly_point event__text">{{event.locationDescription|nl2br}}</p>
+	{% endif %}
+
+
+	{% if event.material %}
+
+		<h2 class="event__subtitle">Matériel Nécessaire</h2>
+		
+		<ul class="event__material">
+			{% for material in event.material %}
+				<li class="event__material_item">{{material}}</li>
+			{% endfor %}
+		</ul>
+
+	{% endif %}
 	
-	<h2 class="event__subtitle">Matériel Nécessaire</h2>
 	
-	<ul class="event__material">
-		{% for material in event.material %}
-			<li class="event__material_item">{{material}}</li>
+	<h2 class="event__subtitle">Participants ({{event.players|length}}/{{event.maxPlayers}})</h2>
+	
+	<ul class="event__playersList">
+		{% for player in event.players %}
+			<li class="event__player">{{player.pseudo}}</li>
 		{% endfor %}
 	</ul>
+
+	<div class="event__remaining-availabilities">  {{ event.maxPlayers - event.players|length}} place(s) restante(s)</div>
 	
-	<h2 class="event__subtitle">Participants (x/{{event.maxPlayers}})</h2>
-	<p class="event__players">{{event.player}} </p>
-	<div class="event__remaining-availabilities">6 places restantes</div>
-	
-	{% if event.priceDescription != "" %}
+	{% if event.priceDescription %}
 		<h2 class="event__subtitle">Prix</h2>
-		<p class="event__price event__text">{{event.priceDescription}} </p>
+		<p class="event__price event__text">{{event.priceDescription|nl2br}} </p>
 	{% endif %}
 	
 	<h2 class="event__subtitle">Niveau Requis</h2>
-	<p class="event__level event__text"><span class="event__level--color-red">{{event.level}}.</span> {{event.levelDescription}}</p>
+	<p class="event__level event__text"><span class="event__level--color-red">{{event.level}}.</span> {{event.levelDescription|nl2br}}</p>
 
+	{% if event.otherAttributes %}
 
-	<h2 class="event__subtitle">Caractéristiques</h2>
-	<ul class="event__material">
-		{% for caracteristic in event.otherAttributes %}
-			<li class="event__material_item">{{caracteristic}}</li>
-		{% endfor %}
-	</ul>
+		<h2 class="event__subtitle">Caractéristiques</h2>
+		<ul class="event__material">
+			{% for caracteristic in event.otherAttributes %}
+				<li class="event__material_item">{{caracteristic}}</li>
+			{% endfor %}
+		</ul>
+
+	{% endif %}
 	
 
-	<a href="#" class="event__cta-participate ">rejoindre</a>
+	<a href="{{path('app_join_event', {eventId: event.id})}}" class="event__cta-participate ">rejoindre</a>
 </section>
 
 

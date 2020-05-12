@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+	{% include('sections/brand_top.html.twig') %}
+
+	{% for event in app.user.sportEventsAsPlayer %}
+
+		{{dump(event)}}
+	{% endfor %}
+
+	{% include("sections/navbar_mobile.html.twig") %}
+
+{% endblock %}

@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -89,6 +91,24 @@ class User implements UserInterface
      * @Assert\Length(min=0, groups={"description"})
      */
     private $description;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\SportEvent", mappedBy="organiser", orphanRemoval=true)
+     */
+    private $sportEventsOrganiser;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\SportEvent", mappedBy="players")
+     */
+    private $sportEventsAsPlayer;
+
+ 
+
+    public function __construct()
+    {
+        $this->sportEventsOrganiser = new ArrayCollection();
+        $this->sportEventsAsPlayer = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -240,4 +260,64 @@ class User implements UserInterface
 
         return $this;
     }
+
+    /**
+     * @return Collection|SportEvent[]
+     */
+    public function getSportEventsOrganiser(): Collection
+    {
+        return $this->sportEventsOrganiser;
+    }
+
+    public function addSportEventsOrganiser(SportEvent $sportEventsOrganiser): self
+    {
+        if (!$this->sportEventsOrganiser->contains($sportEventsOrganiser)) {
+            $this->sportEventsOrganiser[] = $sportEventsOrganiser;
+            $sportEventsOrganiser->setOrganiser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSportEventsOrganiser(SportEvent $sportEventsOrganiser): self
+    {
+        if ($this->sportEventsOrganiser->contains($sportEventsOrganiser)) {
+            $this->sportEventsOrganiser->removeElement($sportEventsOrganiser);
+            // set the owning side to null (unless already changed)
+            if ($sportEventsOrganiser->getOrganiser() === $this) {
+                $sportEventsOrganiser->setOrganiser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|SportEvent[]
+     */
+    public function getSportEventsAsPlayer(): Collection
+    {
+        return $this->sportEventsAsPlayer;
+    }
+
+    public function addSportEventsAsPlayer(SportEvent $sportEventsAsPlayer): self
+    {
+        if (!$this->sportEventsAsPlayer->contains($sportEventsAsPlayer)) {
+            $this->sportEventsAsPlayer[] = $sportEventsAsPlayer;
+            $sportEventsAsPlayer->addPlayer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSportEventsAsPlayer(SportEvent $sportEventsAsPlayer): self
+    {
+        if ($this->sportEventsAsPlayer->contains($sportEventsAsPlayer)) {
+            $this->sportEventsAsPlayer->removeElement($sportEventsAsPlayer);
+            $sportEventsAsPlayer->removePlayer($this);
+        }
+
+        return $this;
+    }
+
 }

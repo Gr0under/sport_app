@@ -1,6 +1,8 @@
 <section class="event_container">
 
+
 	{% for event in events %}
+	
 		<div class="card_event event_container__card_event">
 
 			<div class="card_event__header">
@@ -12,13 +14,13 @@
 
 			<div class="card_event__info-container">
 				<h4 class="card_event__title">{{event.title}}</h4>
-				<span class="card_event__organiser">Organisé par : {{event.organiser}}</span>
+				<span class="card_event__organiser">Organisé par : {{event.organiser.pseudo}}</span>
 				
 				<div class="card_event__list-infos list_component">
 					<ul>
 						<li><i class="fas fa-calendar-alt"></i> {{event.date|date("d/m/Y")}} | {{event.timeStart|date("H")}}h - {{event.timeEnd|date("H")}}h  </li>
 						<li><i class="fas fa-map-marker-alt"></i>{{event.locationCity}} ({{event.locationDpt}})</li>
-						<li><i class="fas fa-users"></i>Participants : 5 / 10</li>
+						<li><i class="fas fa-users"></i>Participants : {{event.players|length}} / {{event.maxPlayers}}</li>
 						<li><i class="fas fa-fist-raised"></i>Niveau : {{event.level}}</li>
 					</ul>
 				</div>

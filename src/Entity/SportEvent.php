@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -26,10 +28,7 @@ class SportEvent
      */
     private $description;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $organiser;
+  
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -56,10 +55,7 @@ class SportEvent
      */
     private $thumbnail;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $player;
+   
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -122,6 +118,24 @@ class SportEvent
      */
     private $max_players;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="sportEventsOrganiser")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $organiser;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\User", inversedBy="sportEventsAsPlayer")
+     */
+    private $players;
+
+    public function __construct()
+    {
+        $this->players = new ArrayCollection();
+    }
+
+   
+
 
     public function getId(): ?int
     {
@@ -152,17 +166,7 @@ class SportEvent
         return $this;
     }
 
-    public function getOrganiser(): ?string
-    {
-        return $this->organiser;
-    }
-
-    public function setOrganiser(string $organiser): self
-    {
-        $this->organiser = $organiser;
-
-        return $this;
-    }
+  
 
 
     public function getLocationDpt(): ?string
@@ -225,17 +229,6 @@ class SportEvent
         return $this;
     }
 
-    public function getPlayer(): ?string
-    {
-        return $this->player;
-    }
-
-    public function setPlayer(string $player): self
-    {
-        $this->player = $player;
-
-        return $this;
-    }
 
     public function getLevel(): ?string
     {
@@ -381,5 +374,45 @@ class SportEvent
 
         return $this;
     }
+
+    public function getOrganiser(): ?User
+    {
+        return $this->organiser;
+    }
+
+    public function setOrganiser(?User $organiser): self
+    {
+        $this->organiser = $organiser;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getPlayers(): Collection
+    {
+        return $this->players;
+    }
+
+    public function addPlayer(User $player): self
+    {
+        if (!$this->players->contains($player)) {
+            $this->players[] = $player;
+        }
+
+        return $this;
+    }
+
+    public function removePlayer(User $player): self
+    {
+        if ($this->players->contains($player)) {
+            $this->players->removeElement($player);
+        }
+
+        return $this;
+    }
+
+  
 
 }

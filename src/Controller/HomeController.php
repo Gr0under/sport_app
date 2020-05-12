@@ -35,13 +35,33 @@ class HomeController extends AbstractController{
 	 * @Route("/event-{slug}", name="event")
 	 */
 	public function displayEvent($slug, EntityManagerInterface $em){
+		
 		$eventId = $slug;
+		
 		$eventRepository = $em->getRepository(SportEvent::class);
 		$event = $eventRepository->findOneBy(['id' => $eventId]);
-		dump($event);
 		return $this->render("event.html.twig", [
 			"event" => $event,
 		]);
+
+	}
+
+	/**
+	 * @Route("/organiserTest", name="organiser")
+	 */
+	public function organiserTest(EntityManagerInterface $em){
+
+		$user = $this->getUser();
+		$repo = $em->getRepository(SportEvent::class);
+
+		$event = $repo->findOneBy(['id'=>"12"]);
+
+		$event->setOrganiser($user);
+
+		$em->persist($event);
+		$em->flush(); 
+
+		dd($user->getSportEventsOrganiser());
 
 	}
 

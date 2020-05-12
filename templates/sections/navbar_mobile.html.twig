@@ -11,6 +11,14 @@
 			favoris
 		</a>
 	</div>
+	{% if is_granted('ROLE_USER') %}
+		<div class="navbarMobile__link-group">
+			<a href="{{path("app_list_event")}}" class="navbarMobile__link navbarMobile__link--bigger">
+				<i class="fas fa-running navbarMobile__icon"></i><br>
+				mes sorties
+			</a>
+		</div>
+	{% endif %}
 	<div class="navbarMobile__link-group">
 		<a href="{{path('createEvent', {step:"choisir-un-sport"})}}" class="navbarMobile__link">
 			<i class="far fa-plus-square navbarMobile__icon"></i> <br>
