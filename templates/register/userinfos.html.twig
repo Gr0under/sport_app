@@ -12,20 +12,41 @@
 
         {{ form_start(registerForm)}}
        
-       <h2 class="form__title">Mes informations</h2>
-       <p class="form__text">Les informations demandées ci-dessous sont nécessaires pour finaliser votre inscription. </p>
 
+       {% if app.request.requestUri is not same as(path('app_manage_infos'))  %}
+
+           <h2 class="form__title">Mes informations</h2>
+           <p class="form__text">Les informations demandées ci-dessous sont nécessaires pour finaliser votre inscription. </p>
+
+       {% else %}
+        
+           <h2 class="form__title form__title--mb">Mes informations</h2>
+
+       {% endif %}
+     
+
+
+      
        {{form_widget(registerForm)}}
        
       
 
 
 
-    
+        {% if app.request.requestUri is same as(path('app_manage_infos')) %}
+
+         <div class="form__buttons-wrapper form__buttons-wrapper--centered">
+            <button type="submit" class="form__btn-next form__btn--size btn btn-primary">Enregistrer</button>
+         </div>
+
+        {% else %}
 
          <div class="form__buttons-wrapper form__buttons-wrapper--centered">
             <button type="submit" class="form__btn-next form__btn--size btn btn-primary">Inscription</button>
          </div>
+
+        {% endif %}
+
 
        {{ form_end(registerForm)}}
 

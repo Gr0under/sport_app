@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+{% include('sections/brand_top.html.twig') %}
+
+<div class="profile">
+	<div class="profile__header">
+		<a href="{{path('app_logout')}}" class="profile__logout">Déconnexion</a>
+		<div class="profile__picture" style="background-image: url({{asset("/img/component/card/thumbnail_running_1.jpg")}})"></div>
+		<h2 class="profile__pseudo">{{app.user.pseudo}}</h2>
+	</div>
+
+	<div class="profile__parameters">
+
+		<h3 class="profile__parameters__groupTitle">Sports et crédits</h3>
+		<ul class="profile__parameters__group">
+			<li class="profile__parameters__group__line">
+				<a href="#" class="profile__parameters__link">Mes sports favoris</a>
+			</li>
+			<li class="profile__parameters__group__line">
+				<a href="#" class="profile__parameters__link">Mes crédits</a>
+			</li>
+		</ul>
+
+		<h3 class="profile__parameters__groupTitle">Paramètres du compte</h3>
+		<ul class="profile__parameters__group">
+			<li class="profile__parameters__group__line">
+				<a href="{{path('app_manage_infos')}}" class="profile__parameters__link">Informations personnelles</a>
+			</li>
+			<li class="profile__parameters__group__line">
+				<a href="{{path('app_manage_description')}}" class="profile__parameters__link">Description et photo</a>
+			</li>
+			<li class="profile__parameters__group__line">
+				<a href="#" class="profile__parameters__link">Changer mot de passe</a>
+			</li>
+			<li class="profile__parameters__group__line">
+				<a href="#" class="profile__parameters__link">Notifications</a>
+			</li>
+			<li class="profile__parameters__group__line">
+				<a href="#" class="profile__parameters__link">Mentions légales</a>
+			</li>
+		</ul>
+
+	</div>
+</div>
+
+{% include("sections/navbar_mobile.html.twig") %}
+
+
+{% endblock %}

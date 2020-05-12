@@ -7,6 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Form\RegisterUserType; 
 use App\Form\UserInfosType; 
+use App\Form\UserDescriptionType; 
 use App\Entity\User; 
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
@@ -88,5 +89,35 @@ class RegisterController extends AbstractController
             "registerForm" => $registerForm->createView(),  
 
         ]); 
+    }
+
+
+    /**
+     * @Route("/inscription/description", name="app_user_description_setup")
+     * @IsGranted("ROLE_USER")
+     */
+    public function setupDescription(Request $request, EntityManagerInterface $em )
+    {
+        $descriptionForm = $this->createForm(UserDescriptionType::class, $this->getUser());
+
+        $descriptionForm->handleRequest($request);
+
+        if($descriptionForm->isSubmitted() && $descriptionForm->isValid())
+        {
+            $data = $descriptionForm->getData();
+
+            $user = $this->getUser();
+
+            $user->setDescription($data->getDescription());
+
+            $em->persist($user);
+            $em->flush(); 
+
+            return $this->redirectToRoute("app_user_description_setup"); 
+        }
+
+        return $this->render("register/userDescription.html.twig", [
+            "descriptionForm" => $descriptionForm->createView(), 
+        ]);
     }
 }

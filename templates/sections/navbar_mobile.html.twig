@@ -20,7 +20,7 @@
 	<div class="navbarMobile__link-group">
 		{% if is_granted('ROLE_USER') %}
 
-			<a href="#" class="navbarMobile__link">
+			<a href="{{path('app_profile_manager')}}" class="navbarMobile__link">
 				<i class="fas fa-user navbarMobile__icon"></i><br>
 				Mon compte
 			</a>

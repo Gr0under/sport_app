@@ -84,6 +84,12 @@ class User implements UserInterface
      */
     private $gender;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     * @Assert\Length(min=0, groups={"description"})
+     */
+    private $description;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -219,6 +225,18 @@ class User implements UserInterface
     public function setGender(?string $gender): self
     {
         $this->gender = $gender;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }

@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+  {{ parent() }}
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+{% endblock %}
+
+{% block body %}
+    {% include('sections/brand_top.html.twig') %}
+
+   <div class="form descriptionForm">
+
+        {{ form_start(descriptionForm) }}
+       
+       <h2 class="form__title">à propos de moi</h2>
+       <p class="form__text">Pour créer et rejoindre des évènements sportifs, il est important que les autres membres puissent vous connaître un peu mieux.</p>
+
+       <h3 class="form__subtitle">Ma photo</h3>
+
+        {# {{form_row(descriptionForm.userPicture)}} #}
+
+
+       <h3 class="form__subtitle">Ma description</h3>
+       <p class="form__text">Une courte description pour vous présenter vous et vos activités sportives favorites.</p>
+
+       {{form_row(descriptionForm.description)}}
+       
+      
+
+
+
+    
+
+         <div class="form__buttons-wrapper form__buttons-wrapper--centered">
+            <button type="submit" class="form__btn-next form__btn--size btn btn-primary">Enregistrer mes infos</button>
+         </div>
+
+       {{ form_end(descriptionForm)}}
+
+       {% if app.request.requestUri is not same as(path('app_manage_description')) %}
+          <a href="#" class="decriptionForm__skipLink skipLink">Passer pour le moment</a>
+       {% endif %}
+
+
+     
+   </div>
+
+
+   
+    {% include("sections/navbar_mobile.html.twig") %}
+
+</div>
+
+{% endblock %}
+
+
+
+
