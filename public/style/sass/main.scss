@@ -5,6 +5,7 @@
 
 @import "component/button";
 @import "component/card-event";
+@import "component/card-event-small";
 @import "component/form";
 
 
@@ -16,8 +17,7 @@
 
 
 
-
-
 @import "pages/home";
 @import "pages/event";
+@import "pages/my-events-list";
 @import "pages/profile";

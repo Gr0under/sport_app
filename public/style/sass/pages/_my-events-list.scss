@@ -1,0 +1,14 @@
+.myEventsList{
+	margin: 0 1rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center; 
+
+	&__title{
+		font-size: 1.5rem;
+		font-family: $robotoCondensed;
+		align-self: flex-start;
+		margin: 2.5rem 0;
+		text-transform: uppercase;
+	}
+}

@@ -38,7 +38,11 @@ class EventManagerController extends AbstractController
      */
     public function displayEventList(EntityManagerInterface $em)
     {
-            
+        
+
+       
+
+
         return $this->render('/event_manager/eventList.html.twig'); 
     }
 }

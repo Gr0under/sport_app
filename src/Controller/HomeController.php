@@ -24,6 +24,20 @@ class HomeController extends AbstractController{
 			return $this->redirectToRoute("app_user_infos_setup");
 		}
 		$repository = $em->getRepository(SportEvent::class);
+
+		// if ( null !== $this->getUser() && in_array("ROLE_USER", $this->getUser()->getRoles() ) ){
+		// 	$department = $this->getUser()->getAddress() ;
+
+
+
+		// 	$eventsByCity = $repository->findBy(["location_dpt" => $department]);
+
+		// 	return $this->render("home.html.twig", [
+		// 		"events" => $eventsByCity
+		// 	]);
+
+		// 	dd($events); 
+		// }
 		$events = $repository->findAll();
 
 		return $this->render("home.html.twig", [

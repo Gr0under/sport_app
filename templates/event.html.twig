@@ -12,7 +12,7 @@
 	
 	<h1 class="event__title">{{event.title}}</h1>
 	<span class="event__organiser event__text">Organisé par : {{event.organiser.pseudo}}</span>
-	<p class="event__description event__text">{{event.description}}</p>
+	<p class="event__description event__text">{{event.description|nl2br}}</p>
 	
 
 	{% if event.locationDescription %}

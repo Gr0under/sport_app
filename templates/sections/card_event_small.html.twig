@@ -1,0 +1,36 @@
+<div class="eventCardSmall">
+
+	<div class="eventCardSmall__topContainer topContainer">
+		<div class="topContainer__leftAlign">
+			<h5 class="eventCardSmall__title">{{event.title}}</h5>
+			<p class="eventCardSmall__description">
+				{{ event.description|length > 50 ? event.description|slice(0,100) ~ '...' : event.description }}
+			</p>			
+		</div>
+
+
+
+		<div class="eventCardSmall__thumbnail" style="background-image: url({{asset(event.thumbnail)}})"></div>
+
+	</div>
+
+	<div class="eventCardSmall__bottomContainer">
+		<div class="eventCardSmall__ctaContainer">
+			<a href="#" class="eventCardSmall__link">Voir</a>
+			{% if app.user.username is same as(event.organiser.username) %}
+				<a href="#" class="eventCardSmall__link eventCardSmall__link--outlined">Gérer</a>
+			{% endif %}
+		</div>
+		<div class="eventCardSmall__rightAlignContainer">
+			<span class="eventCardSmall__info">{{event.sportCategory.sportName}}</span>
+			<span class="eventCardSmall__info">{{event.locationCity}} | {{event.timeStart|date("H")}}h - {{event.timeEnd|date("H")}}h</span>
+		</div>
+	</div>
+
+	<div class="eventCardSmall__dateContainer dateContainer">
+		<div class="dateContainer__separator"></div>
+		<span class="dateContainer__date">{{event.date|date("d/m/Y")}}</span>
+		<div class="dateContainer__separator"></div>
+	</div>
+
+</div>

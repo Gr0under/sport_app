@@ -2,12 +2,24 @@
 
 
 {% block body %}
+
 	{% include('sections/brand_top.html.twig') %}
 
-	{% for event in app.user.sportEventsAsPlayer %}
 
-		{{dump(event)}}
+	<section class="myEventsList">
+		
+		<h2 class="myEventsList__title">Mes sorties sportives</h2>
+
+	{% for event in app.user.sportEventsAsPlayer|sort((a,b) => a.date <=> b.date) %}
+
+
+		{% include('sections/card_event_small.html.twig')%}
 	{% endfor %}
+
+	</section>
+
+
+
 
 	{% include("sections/navbar_mobile.html.twig") %}
 
