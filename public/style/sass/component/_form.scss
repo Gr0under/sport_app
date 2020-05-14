@@ -144,6 +144,20 @@
 		cursor: pointer; 
 	}
 
+	&__fieldFromDb > div{
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+	
+	&__fieldFromDb > div > div > .fa-minus-circle{
+		margin-left: 1rem;
+		margin-bottom: 1rem;
+		color: $green;
+		font-size: 1.2rem;
+		cursor: pointer; 
+	}
+
 	&__addedFieldGroup{
 		display: flex;
 		justify-content: space-between;

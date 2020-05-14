@@ -1,0 +1,110 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	{% include('sections/brand_top.html.twig') %}
+
+	<div class="createEventForm form">
+		{{ form_start(form)}}
+		<h2 class="form__title">décrivez votre évènement</h2>
+
+		<p class="form__text">Un titre, une description et une image pour donner envie aux autres sportifs de vous rejoindre. </p>
+
+		<h3 class="form__subtitle">Le titre</h3>
+		<p class="form__text">Un court titre accrocheur pour saisir en une seconde le but de cette rencontre sportive (sport, parcours, lieu...)</p>
+
+		{{ form_row(form.title)}}
+
+
+		<h3 class="form__subtitle">La description</h3>
+		<p class="form__text">Décrivez ce que vous allez faire, le programme, le but. Donner envie aux autres de participer.</p>
+
+		{{ form_row(form.description)}}
+
+
+		<h3 class="form__subtitle">image de présentation</h3>
+		<p class="form__text">Une belle image pour illustrer cette future rencontre. A sélectionner dans la liste ci-dessous uniquement. </p>
+
+	
+		<div class="createEventForm__imgContainer">
+
+
+			{% for thumbnail in event.sportCategory.thumbnailCollection %}
+
+			<div data-url="{{asset(thumbnail)}}" class="createEventForm__thumbnail" style="background-image: url({{asset(thumbnail)}});">
+				<div class="createEventForm__thumbnail--cover">
+					<i class="fas fa-check-circle"></i>
+				</div>
+			</div>
+
+			{% endfor %}
+
+
+		</div>
+
+
+		<div class="form__buttons-wrapper">
+			<button type="submit" class="form__btn-next btn btn-primary">Enregistrer</button>
+		</div>
+
+
+	
+		{{ form_end(form) }}
+
+
+		
+	</div>
+
+	<script>	
+
+		let thumbnail = document.querySelectorAll(".createEventForm__thumbnail");
+		const hiddenInputThumbnail = document.getElementById('create_event_step2_thumbnail'); 
+
+		for(var i = 0 ; i< thumbnail.length; i++){
+			thumbnail[i].addEventListener("click", updateHiddenField);
+		}
+
+		function updateHiddenField(e){
+
+			hiddenInputThumbnail.value = e.target.dataset.url;
+
+			console.log(e.target.childNodes); 
+
+			for(var k = 0; k < thumbnail.length; k++){
+				if( thumbnail[k].childNodes[1].classList.contains("createEventForm__thumbnail--cover-show" )){
+					thumbnail[k].childNodes[1].classList.remove("createEventForm__thumbnail--cover-show");
+				}
+			}
+
+			if(!e.target.childNodes[1].classList.contains("createEventForm__thumbnail--cover-show")){
+				e.target.childNodes[1].classList.add("createEventForm__thumbnail--cover-show");
+			}
+
+
+
+
+
+		}
+
+		resizeThumbnail(); 
+		window.addEventListener("resize", resizeThumbnail);
+		function resizeThumbnail()
+		{			
+			
+
+			for(let i=0; i < thumbnail.length; i++){
+
+				let thumbnailWitdh = thumbnail[i].offsetWidth;
+
+				let thumbnailHeight = thumbnailWitdh / 16 * 9; 
+
+				thumbnail[i].style.height = thumbnailHeight + 'px'; 
+			}
+		}
+
+		
+	</script>
+	
+	{% include("sections/navbar_mobile.html.twig") %}
+{% endblock %}
+
+

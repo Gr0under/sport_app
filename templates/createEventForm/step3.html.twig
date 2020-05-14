@@ -44,7 +44,12 @@
 
 			
 			<div class="form__buttons-wrapper">
+				{% if event is defined and is_granted('MANAGE', event) %}
+					<button type="submit" class="form__btn-next btn btn-primary">enregistrer</button>
+				{% else %}
 				<button type="submit" class="form__btn-next btn btn-primary">suivant</button>
+
+				{% endif %}
 			</div>
 
 

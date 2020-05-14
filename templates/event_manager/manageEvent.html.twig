@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+	{% include('sections/brand_top.html.twig') %}
+
+	{% include('sections/flash.html.twig') %}	
+
+
+	<div class="profile">
+		<div class="profile__header">
+			<h2 class="profile__eventTitle">{{event.title}}</h2>
+		</div>
+
+		<div class="profile__parameters">
+
+			<h3 class="profile__parameters__groupTitle">Informations</h3>
+			<ul class="profile__parameters__group">
+				<li class="profile__parameters__group__line">
+					<a href="{{path('app_manage_event_sport', {id:event.id})}}" class="profile__parameters__link">Sport, titre, description, image</a>
+				</li>
+				<li class="profile__parameters__group__line">
+					<a href="{{path('app_manage_event_place', {id:event.id})}}" class="profile__parameters__link">Lieu, date, horaires</a>
+				</li>
+				<li class="profile__parameters__group__line">
+					<a href="{{path('app_manage_event_material', {id:event.id})}}" class="profile__parameters__link">Matériel, niveau, prix</a>
+				</li>
+				<li class="profile__parameters__group__line">
+					<a href="{{path('app_manage_event_other_attributes', {id:event.id})}}" class="profile__parameters__link">Caractéristiques spécifiques</a>
+				</li>
+			</ul>
+
+			<h3 class="profile__parameters__groupTitle">Participants</h3>
+			<ul class="profile__parameters__group">
+				<li class="profile__parameters__group__line">
+					Nombre de participants : {{event.getMaxPlayers}}<a href="#" class="profile__parameters__link">Modifier</a>
+				</li>
+			</ul>
+
+
+			<h3 class="profile__parameters__groupTitle">annulation</h3>
+			<ul class="profile__parameters__group">
+					
+				<li class="profile__parameters__group__line">
+					<a href="{{path('app_manage_description')}}" class="profile__parameters__link">Annuler la sortie</a>
+				</li>
+
+			</ul>
+
+		</div>
+	</div>
+
+
+
+	{% include("sections/navbar_mobile.html.twig") %}
+
+{% endblock %}

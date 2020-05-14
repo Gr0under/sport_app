@@ -31,8 +31,10 @@ class CreateEventStep4Type extends AbstractType
                   "label" => false, 
               ],
               'allow_add' => true,
+              'allow_delete' => true, 
               "prototype" => true, 
               "label" => false, 
+              "attr" => ['class' => "form__fieldFromDb"],
               
            ])
 

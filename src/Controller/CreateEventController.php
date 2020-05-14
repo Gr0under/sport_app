@@ -130,20 +130,7 @@ class CreateEventController extends AbstractController{
 						->setTimeEnd($data->getTimeEnd());
 					
 
-					// dump($this->session->get('sportEvent')); die();
-
-					// if(null !== $this->session->get('sportEvent'))
-					// {
-					// 	$em->persist($this->session->get('sportEvent')); 
-					// 	$em->flush();
-					// }else{
-					// 	echo "Aucun objet à envoyer en DB"; 
-					// }
-
-					// $this->session->remove('sportEvent');  
-					// dump($this->session->get('sportEvent'));
-
-					//  die();
+				
 					return $this->redirectToRoute("createEvent", ["step"=>"materiel-prix-niveau"]);
 				}
 
