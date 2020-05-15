@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\SportEvent;
 use App\Entity\User;
+use App\Form\SearchEventType;
 
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface; //pour générer des users en db only
 
@@ -17,31 +18,31 @@ class HomeController extends AbstractController{
 	/**
 	 * @Route("/", name="home")
 	 */
-	public function homepage(EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder)
+	public function homepage(Request $request, EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder)
 	{
 
 		if ( null !== $this->getUser() && in_array("ROLE_PRE_USER", $this->getUser()->getRoles() ) ) {
 			return $this->redirectToRoute("app_user_infos_setup");
+
 		}
 		$repository = $em->getRepository(SportEvent::class);
 
-		// if ( null !== $this->getUser() && in_array("ROLE_USER", $this->getUser()->getRoles() ) ){
-		// 	$department = $this->getUser()->getAddress() ;
+		$form = $this->createForm(SearchEventType::class);
+		$form->handleRequest($request);
+
+		if ($form->isSubmitted() && $form->isValid()) {
+			$data = $form->getData();
+
+			$events = $repository->findByDptOrCity($data['search']); 
+			dd($events); 
+		}
 
 
-
-		// 	$eventsByCity = $repository->findBy(["location_dpt" => $department]);
-
-		// 	return $this->render("home.html.twig", [
-		// 		"events" => $eventsByCity
-		// 	]);
-
-		// 	dd($events); 
-		// }
 		$events = $repository->findAll();
 
 		return $this->render("home.html.twig", [
-			"events" => $events
+			"events" => $events,
+			"form" => $form->createView(), 
 		]);
 	}
 
@@ -57,25 +58,6 @@ class HomeController extends AbstractController{
 		return $this->render("event.html.twig", [
 			"event" => $event,
 		]);
-
-	}
-
-	/**
-	 * @Route("/organiserTest", name="organiser")
-	 */
-	public function organiserTest(EntityManagerInterface $em){
-
-		$user = $this->getUser();
-		$repo = $em->getRepository(SportEvent::class);
-
-		$event = $repo->findOneBy(['id'=>"12"]);
-
-		$event->setOrganiser($user);
-
-		$em->persist($event);
-		$em->flush(); 
-
-		dd($user->getSportEventsOrganiser());
 
 	}
 

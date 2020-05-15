@@ -22,19 +22,19 @@ class SportEventRepository extends ServiceEntityRepository
     // /**
     //  * @return SportEvent[] Returns an array of SportEvent objects
     //  */
-    /*
-    public function findByExampleField($value)
+    
+    public function findByDptOrCity($value)
     {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
+        return $this->createQueryBuilder('event')
+            ->andWhere('event.location_dpt = :val OR event.location_city = :val')
             ->setParameter('val', $value)
-            ->orderBy('s.id', 'ASC')
-            ->setMaxResults(10)
+            // ->andWhere('event.location_city = :val')
+            // ->setParameter('val', $value)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+    
 
     /*
     public function findOneBySomeField($value): ?SportEvent

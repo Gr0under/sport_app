@@ -3,11 +3,29 @@
 {% block body %}
 	{% include('sections/brand_top.html.twig') %}
 
-	<h2 class="landing_page__title">Nom du site. Trouver des rassemblements sportifs dans votre ville.</h2>
+	<div class="searchBar form">
+		{{form_start(form, {'attr': {'class': 'searchBar__form'}})}}
+			<div class="relative">
+				{{form_widget(form.search)}}
+
+				<i class="fas fa-search searchBar__icon"></i>
+			</div>		
+		{{form_end(form)}}
+			
+	</div>
+
+	<div class="searchLayout"></div>
+
+	<h2 class="landing_page__title">Nom du site. Trouver des rassemblements sportifs près de chez vous.</h2>
 
 	{% include('sections/card_event.html.twig') %}
 
 	{% include("sections/navbar_mobile.html.twig") %}
 
 
+{% endblock %}
+
+{% block javascripts %}
+	{{parent()}}
+	<script src={{asset('/js/searchEvent.js')}}></script>
 {% endblock %}
