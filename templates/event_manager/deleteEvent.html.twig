@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+	{% include('sections/brand_top.html.twig') %}
+
+	<div class="form">
+		<h2 class="form__title">Annuler la sortie</h2>
+
+		{{form_start(form)}}
+
+			<p class="form__text">
+				Vous êtes sur le point d’annuler votre sortie : {{event.title}}
+			</p>
+			<p class="form__text">
+				Un email sera envoyé à l’ensemble des participants pour les prévenir de l’annulation de cette sortie.
+			</p>
+			<p class="form__text">
+				Aidez-nous à améliorer monsite.com en nous indiquant le motif de cette annulation. Cette information confidentielle ne sera pas transmise aux participants.
+			</p>
+
+			
+			{{form_row(form.message)}}
+
+
+
+
+			{{form_widget(form.confirmDelete)}}
+			{{form_label(form.confirmDelete, "Je confirme l’annulation de l’évènement " ~ event.title)}}
+			{{form_errors(form.confirmDelete)}}
+
+
+		<div class="form__buttons-wrapper">
+			<button type="submit" class="form__btn-next btn btn-primary">annuler la sortie</button>
+		</div>
+
+		{{form_end(form)}}
+		
+
+
+
+		
+	</div>
+
+
+	{% include("sections/navbar_mobile.html.twig") %}
+
+{% endblock %}

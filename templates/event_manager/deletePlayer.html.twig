@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+	{% include('sections/brand_top.html.twig') %}
+
+	<div class="form">
+		<h2 class="form__title">Supprimer un participant</h2>
+
+		{{form_start(form)}}
+
+			<p class="form__text">
+				Vous êtes sur le point de supprimer la participation de {{player.pseudo}} à votre évènement.
+			</p>
+			<p class="form__text">
+				Un e-mail lui sera envoyé pour l’en informer. <br>
+				Vous pouvez lui expliquer les raisons de cette annulation en saisissant un message dans le formulaire ci-dessous.
+			</p>
+
+			
+			{{form_row(form.message)}}
+
+
+
+
+			{{form_widget(form.confirmDelete)}}
+			{{form_label(form.confirmDelete)}}
+			{{form_errors(form.confirmDelete)}}
+
+
+		<div class="form__buttons-wrapper">
+			<button type="submit" class="form__btn-next btn btn-primary">annuler participant</button>
+		</div>
+
+		{{form_end(form)}}
+		
+
+
+
+		
+	</div>
+
+
+	{% include("sections/navbar_mobile.html.twig") %}
+
+{% endblock %}

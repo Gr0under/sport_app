@@ -52,7 +52,7 @@ class SportEventFixture extends BaseFixture implements DependentFixtureInterface
     public function loadData(ObjectManager $manager)
     {
 
-        $this->createMany(SportEvent::class, 15, function($event, $count){
+        $this->createMany(SportEvent::class, 10, function($event, $count){
 
 
 

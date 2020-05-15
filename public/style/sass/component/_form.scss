@@ -38,6 +38,10 @@
 		font-family: 'Roboto', sans-serif;
 		font-size: 13.33px;
 		resize: vertical;
+
+		&--mb{
+			margin-bottom: 2rem;
+		}
 	}
 	select, input, textarea{
 		width: 100%;

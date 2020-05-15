@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+	{% include('sections/brand_top.html.twig') %}
+
+	<div class="form">
+		<h2 class="form__title">Contacter un participant</h2>
+
+		{{form_start(form)}}
+
+			<p class="form__text">Pour contacter {{player.pseudo}}, saisissez votre message dans le formulaire ci-dessous et cliquer sur envoyer</p>
+
+			{{form_widget(form)}}
+
+
+		<div class="form__buttons-wrapper">
+			<button type="submit" class="form__btn-next btn btn-primary">envoyer</button>
+		</div>
+
+		{{form_end(form)}}
+		
+
+
+
+		
+	</div>
+
+
+	{% include("sections/navbar_mobile.html.twig") %}
+
+{% endblock %}

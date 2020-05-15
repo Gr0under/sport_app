@@ -26,7 +26,7 @@ class UserFixtures extends BaseFixture
 	}
     protected function loadData(ObjectManager $manager)
     {
-    	$this->createMany(User::class, 15, function(User $user, $count){
+    	$this->createMany(User::class, 10, function(User $user, $count){
 
 			$user->setEmail("paul.juquelier".$count."@gmail.com")
 	    		 ->setPassword($this->encoder->encodePassword($user, "engage"))

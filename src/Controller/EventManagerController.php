@@ -14,6 +14,8 @@ use App\Form\CreateEventStep2Type;
 use App\Form\CreateEventStep3Type;
 use App\Form\CreateEventStep4Type;
 use App\Form\CreateEventStep5Type;
+use App\Form\ContactPlayerType;
+use App\Form\DeletePlayerType;
 
 
 class EventManagerController extends AbstractController
@@ -181,26 +183,119 @@ class EventManagerController extends AbstractController
     }
 
     /**
-     * @Route("/event/manage/{id}/contact-player", name="app_manage_contact_player")
+     * @Route("/event/manage/{id}/contact-player-{playerId}", name="app_manage_contact_player")
      */
-    public function manageEventContactPlayer(SportEvent $event, EntityManagerInterface $em, Request $request)
+    public function manageEventContactPlayer(SportEvent $event, EntityManagerInterface $em, Request $request, $playerId)
     {
+
+        $playerRepo = $em->getRepository(User::class);
+
+        $playerToReach = $playerRepo->findOneBy(['id' => $playerId ]);
+
+        
        
         $this->denyAccessUnlessGranted('MANAGE', $event); 
 
-        $form = $this->createForm(CreateEventStep5Type::class, $event);
+        $this->denyAccessUnlessGranted('MANAGE_PLAYER', $playerToReach); 
+
+        $form = $this->createForm(ContactPlayerType::class);
 
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
-            $em->flush();
-            $this->addFlash('success', "Les informations ont bien été mises à jour !"); 
+            
+            // Add send email to player logic
+            $this->addFlash('success', "Votre message a été envoyé avec succès"); 
             return $this->redirectToRoute('app_manage_event', ['id' => $event->getId()]);
         }
 
-        return $this->render('/createEventForm/step5.html.twig',[
+        return $this->render('/event_manager/contactPlayer.html.twig',[
                 "event" => $event, 
-                "createEventForm" => $form->createView(), 
+                "player" => $playerToReach,
+                "form" => $form->createView(), 
+        ]); 
+    }
+
+    /**
+     * @Route("/event/manage/{id}/cancel-player-{playerId}", name="app_manage_delete_player")
+     */
+    public function manageEventDeletePlayer(SportEvent $event, EntityManagerInterface $em, Request $request, $playerId)
+    {
+
+        $playerRepo = $em->getRepository(User::class);
+
+        $playerToDelete = $playerRepo->findOneBy(['id' => $playerId ]);
+
+        $this->denyAccessUnlessGranted('MANAGE', $event); 
+
+        $this->denyAccessUnlessGranted('MANAGE_PLAYER', $playerToDelete); 
+
+        $form = $this->createForm(DeletePlayerType::class);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            
+            // Add send email to player logic
+
+            if($form['confirmDelete']->getData() === true ){
+                
+                if($this->getUser() !== $playerToDelete){
+                    $data = $form->getData();
+
+                    $event->removePlayer($playerToDelete); 
+
+                    $em->persist($event);
+                    $em->flush();   
+                    $this->addFlash('success', $playerToDelete->getPseudo()." a été retiré de votre évènement"); 
+                    return $this->redirectToRoute('app_manage_event', ['id' => $event->getId()]);
+                }
+
+                $this->addFlash('error', "Vous ne pouvez pas supprimer votre participation à cet évènement. Si vous ne pouvez pas venir, il vous faut annuler l'évènement."); 
+                
+                return $this->redirectToRoute('app_manage_event', ['id' => $event->getId()]);
+
+
+
+
+            }
+
+           
+
+        }
+
+        return $this->render('/event_manager/deletePlayer.html.twig',[
+                "event" => $event, 
+                "player" => $playerToDelete,
+                "form" => $form->createView(), 
+        ]); 
+    }
+
+    /**
+     * @Route("/event/manage/{id}/cancel-event", name="app_manage_delete_event")
+     */
+    public function manageEventDeleteEvent(SportEvent $event, EntityManagerInterface $em, Request $request)
+    {
+        $this->denyAccessUnlessGranted('MANAGE', $event); 
+
+        $form = $this->createForm(DeletePlayerType::class);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            
+            if($form['confirmDelete']->getData() === true){
+                $this->getUser()->removeSportEventsOrganiser($event);
+
+                $em->flush(); 
+
+                return $this->redirectToRoute('app_list_event');
+            }
+        }
+
+        return $this->render('/event_manager/deleteEvent.html.twig',[
+                "event" => $event, 
+                "form" => $form->createView(), 
         ]); 
     }
 

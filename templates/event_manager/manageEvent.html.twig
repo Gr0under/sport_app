@@ -10,6 +10,7 @@
 
 	<div class="profile">
 		<div class="profile__header">
+			<div class="profile__header__cover" style="background-image: url({{asset(event.thumbnail)}})"></div>
 			<h2 class="profile__eventTitle">{{event.title}}</h2>
 		</div>
 
@@ -39,20 +40,29 @@
 
 				<ul class="event__playersList">
 					{% for player in event.players %}
+
+
 						<li class="event__player">
 
 							<div class="event__playerInfos">
 								<div class="profile_picture" style="background-image: url({{asset(player.picture)}})"></div>
-								
-								{{player.pseudo}}
+								{% if app.user is same as(player) %}
+									{{player.pseudo ~ " (moi)"}}
+
+								{% else %}
+									{{player.pseudo}} 
+
+								{% endif %}
 							</div>
 
-							<div class="event__playerControls">
-								<a href="{{path('app_manage_contact_player', {id:event.id, player: player})}}" class="event__players__link event__players__link--message"><i class="fas fa-envelope"></i></a>
-								<a href="" class="event__players__link event__players__link--delete">
-									<i class="fas fa-user-times"></i>
-								</a>
-							</div>
+							{% if app.user is not same as(player) %}
+								<div class="event__playerControls">
+									<a href="{{path('app_manage_contact_player', {id:event.id, playerId:player.id})}}" class="event__players__link event__players__link--message"><i class="fas fa-envelope"></i></a>
+									<a href="{{path('app_manage_delete_player', {id:event.id, playerId: player.id})}}" class="event__players__link event__players__link--delete">
+										<i class="fas fa-user-times"></i>
+									</a>
+								</div>
+							{% endif %}
 
 
 							
@@ -66,7 +76,7 @@
 			<ul class="profile__parameters__group">
 					
 				<li class="profile__parameters__group__line">
-					<a href="{{path('app_manage_description')}}" class="profile__parameters__link profile__parameters__link--red">Annuler la sortie</a>
+					<a href="{{path('app_manage_delete_event', {id: event.id})}}" class="profile__parameters__link profile__parameters__link--red">Annuler la sortie</a>
 				</li>
 
 			</ul>
