@@ -11,6 +11,15 @@ class UserFixtures extends BaseFixture
 {
 	private $encoder;
 
+	private static $profilePicture = [
+		'/img/profilePicture/profile_picture_1.jpg',
+		'/img/profilePicture/profile_picture_2.jpg',
+		'/img/profilePicture/profile_picture_3.jpg',
+		'/img/profilePicture/profile_picture_4.jpg',
+		'/img/profilePicture/profile_picture_5.jpg',
+		'/img/profilePicture/profile_picture_6.jpg',
+	];
+
 	public function __construct(UserPasswordEncoderInterface $encoder)
 	{
 		$this->encoder = $encoder; 
@@ -26,7 +35,9 @@ class UserFixtures extends BaseFixture
 	             ->setBirthdate($this->faker->dateTimeBetween('-50 years' , '-18 years'))
 	             ->setAddress(95800)
 	             ->setGender("male")
-	             ->setRoles([]); 
+	             ->setRoles([])
+	             ->setPicture($this->faker->randomElement(self::$profilePicture)) 
+	             ;
 
     	});
     	

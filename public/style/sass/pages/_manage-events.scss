@@ -4,4 +4,57 @@
 	font-size: 1.5rem;
 	font-family: $robotoCondensed;
 	text-transform: uppercase;
+
+}
+
+.profile{
+	&__parameters__link{
+
+		&--red{
+			color : $red;
+		}
+		
+	}
+
+	.event__playersList{
+
+		padding-left: 0;
+		margin-bottom: 2rem;
+
+		.event__player{
+
+			justify-content: space-between;
+
+			.event__playerInfos{
+
+				display: flex;
+				align-items: center;
+
+				.profile_picture{
+					@include userPictureInList; 
+				}
+
+			}
+
+			.event__playerControls{
+				margin-right: 2.5rem;
+				.event__players__link{
+					font-size: 1.3rem;
+
+					&--message{
+						color: $gold;
+						margin-right: 1rem;
+					}
+
+					&--delete{
+						color: $red;
+
+					}
+				}
+			}
+
+		}
+	
+	}
+
 }

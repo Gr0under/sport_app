@@ -7,7 +7,7 @@
 <div class="profile">
 	<div class="profile__header">
 		<a href="{{path('app_logout')}}" class="profile__logout">Déconnexion</a>
-		<div class="profile__picture" style="background-image: url({{asset("/img/component/card/thumbnail_running_1.jpg")}})"></div>
+		<div class="profile__picture" style="background-image: url({{asset(app.user.picture)}})"></div>
 		<h2 class="profile__pseudo">{{app.user.pseudo}}</h2>
 	</div>
 

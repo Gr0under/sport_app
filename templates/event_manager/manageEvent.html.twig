@@ -24,7 +24,7 @@
 					<a href="{{path('app_manage_event_place', {id:event.id})}}" class="profile__parameters__link">Lieu, date, horaires</a>
 				</li>
 				<li class="profile__parameters__group__line">
-					<a href="{{path('app_manage_event_material', {id:event.id})}}" class="profile__parameters__link">Matériel, niveau, prix</a>
+					<a href="{{path('app_manage_event_material', {id:event.id})}}" class="profile__parameters__link">Matériel, niveau, prix, nb participants</a>
 				</li>
 				<li class="profile__parameters__group__line">
 					<a href="{{path('app_manage_event_other_attributes', {id:event.id})}}" class="profile__parameters__link">Caractéristiques spécifiques</a>
@@ -34,8 +34,31 @@
 			<h3 class="profile__parameters__groupTitle">Participants</h3>
 			<ul class="profile__parameters__group">
 				<li class="profile__parameters__group__line">
-					Nombre de participants : {{event.getMaxPlayers}}<a href="#" class="profile__parameters__link">Modifier</a>
+					Nombre maximum de participants : {{event.getMaxPlayers}}
 				</li>
+
+				<ul class="event__playersList">
+					{% for player in event.players %}
+						<li class="event__player">
+
+							<div class="event__playerInfos">
+								<div class="profile_picture" style="background-image: url({{asset(player.picture)}})"></div>
+								
+								{{player.pseudo}}
+							</div>
+
+							<div class="event__playerControls">
+								<a href="{{path('app_manage_contact_player', {id:event.id, player: player})}}" class="event__players__link event__players__link--message"><i class="fas fa-envelope"></i></a>
+								<a href="" class="event__players__link event__players__link--delete">
+									<i class="fas fa-user-times"></i>
+								</a>
+							</div>
+
+
+							
+						</li>
+					{% endfor %}
+				</ul>
 			</ul>
 
 
@@ -43,7 +66,7 @@
 			<ul class="profile__parameters__group">
 					
 				<li class="profile__parameters__group__line">
-					<a href="{{path('app_manage_description')}}" class="profile__parameters__link">Annuler la sortie</a>
+					<a href="{{path('app_manage_description')}}" class="profile__parameters__link profile__parameters__link--red">Annuler la sortie</a>
 				</li>
 
 			</ul>

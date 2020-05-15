@@ -1,0 +1,8 @@
+@mixin userPictureInList{
+	height: 48px;
+	width: 48px;
+	background-size: cover;
+	background-position: center;
+	border-radius: 100%;
+	margin-right: 1.5rem;
+}

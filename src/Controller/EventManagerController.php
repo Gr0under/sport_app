@@ -180,6 +180,30 @@ class EventManagerController extends AbstractController
         ]); 
     }
 
+    /**
+     * @Route("/event/manage/{id}/contact-player", name="app_manage_contact_player")
+     */
+    public function manageEventContactPlayer(SportEvent $event, EntityManagerInterface $em, Request $request)
+    {
+       
+        $this->denyAccessUnlessGranted('MANAGE', $event); 
+
+        $form = $this->createForm(CreateEventStep5Type::class, $event);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $em->flush();
+            $this->addFlash('success', "Les informations ont bien été mises à jour !"); 
+            return $this->redirectToRoute('app_manage_event', ['id' => $event->getId()]);
+        }
+
+        return $this->render('/createEventForm/step5.html.twig',[
+                "event" => $event, 
+                "createEventForm" => $form->createView(), 
+        ]); 
+    }
+
 
 
 }

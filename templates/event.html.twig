@@ -38,7 +38,11 @@
 	
 	<ul class="event__playersList">
 		{% for player in event.players %}
-			<li class="event__player">{{player.pseudo}}</li>
+			<li class="event__player">
+				<div class="profile_picture" style="background-image: url({{asset(player.picture)}})"></div>
+				{{player.pseudo}}
+				
+			</li>
 		{% endfor %}
 	</ul>
 
