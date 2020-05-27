@@ -19,32 +19,35 @@ class UserRepository extends ServiceEntityRepository
         parent::__construct($registry, User::class);
     }
 
-    // /**
-    //  * @return User[] Returns an array of User objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('u.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?User
+    public function allUsersOrderedByPseudo()
     {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        // $dql = 'SELECT user FROM App\Entity\User user ORDER BY user.pseudo DESC';
+        // $query = $this->getEntityManager()->createQuery($dql);
+
+        // dd($query->getSQL()); 
+
+        // return $query->execute();
+
+        $qb = $this->createQueryBuilder('user');
+        $qb->addOrderBy('user.pseudo', 'DESC');
+
+        $query = $qb->getQuery(); 
+
+      
+
     }
-    */
+
+    public function search($term)
+    {
+        return $this->createQueryBuilder('user')
+            ->andWhere('sp.sport_name = :term')
+            ->leftJoin('user.sports', 'sp')
+            ->setParameter('term', '%'.$term.'%')
+            ->getQuery()
+            ->execute()
+            ;
+    }
+
+
 }

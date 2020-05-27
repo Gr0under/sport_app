@@ -34,6 +34,35 @@ class SportEventRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+
+    public function findByFavoriteSports($user)
+    {
+
+        // foreach ($user->getSports() as $sport) {
+        //    return $this->createQueryBuilder('event')
+        //         ->select('event.sportCategory = :val')
+        //         ->setParameter('val', $sport)
+        //         ->getQuery() 
+        //         ->getResult() ;
+
+        // }
+
+        $query = $this->createQueryBuilder('user')
+
+
+                  ->andWhere('event.sportCategory = :sports')
+                  ->setParameter('sports', $user->getSports()[1])
+                  ->getQuery() 
+                  ->getResult(); 
+
+                  dd($query); 
+        // return $this->createQueryBuilder('event')
+        //             ->addSelect('event.sportCategory')
+        //             ->setParameter('val', $user->getSports())
+        //            ->getQuery() 
+        //            ->getResult() ;
+
+    }
     
 
     /*

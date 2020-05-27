@@ -55,6 +55,22 @@
 		}
 	}
 
+	&__checkbox_group{
+		height: 56px;
+		display: flex;
+		align-items: center;
+		border-top: solid 0.8px;
+
+		& > input {
+			margin-left: 1rem;	
+			margin-right: 2rem;	
+		}
+
+		& > label {
+			font-size: 1rem !important	;	
+		}
+	}
+
 	&__group_options{
 		display: grid;
 		grid-template-columns: 20px 1fr;

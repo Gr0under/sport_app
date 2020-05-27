@@ -12,4 +12,12 @@
 		margin-left: 1rem;
 		font-size: 1.5rem;
 	}
+
+	@media screen and(min-width: 850px){
+		grid-area: brandTop;
+		height: 72px;
+		&__title{
+			font-size: 2rem;
+		}
+	}
 }

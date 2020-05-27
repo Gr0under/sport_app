@@ -52,7 +52,7 @@ class SportEventFixture extends BaseFixture implements DependentFixtureInterface
     public function loadData(ObjectManager $manager)
     {
 
-        $this->createMany(SportEvent::class, 10, function($event, $count){
+        $this->createMany(SportEvent::class, 100, function($event, $count){
 
 
 
@@ -63,7 +63,9 @@ class SportEventFixture extends BaseFixture implements DependentFixtureInterface
 				   ->setLocationCity($this->faker->city())
 				   ->setLocationAddress($this->faker->address())
 				   ->setLocationDescription($this->faker->paragraph(3, true))
-				   ->setThumbnail($this->faker->randomElement(self::$thumbnailsUrl))
+				   ->setSportCategory($this->getRandomReference(SportCategory::class))
+				   // ->setThumbnail($this->faker->randomElement(self::$thumbnailsUrl))
+				   ->setThumbnail($event->getSportCategory()->getThumbnailCollection()[0])
 				   ->addPlayer($event->getOrganiser())
 				   ->addPlayer($this->getRandomReference(User::class))
 				   ->setLevel($this->faker->randomElement(self::$eventLevels))
@@ -75,7 +77,6 @@ class SportEventFixture extends BaseFixture implements DependentFixtureInterface
 				   ->setDate($this->faker->dateTimeBetween('1 days' , '6 months'))
 				   ->setTimeStart($this->faker->dateTimeBetween('1 days' , '6 months'))
 				   ->setTimeEnd($this->faker->dateTimeBetween('1 days' , '6 months'))
-				   ->setSportCategory($this->getRandomReference(SportCategory::class))
 				   ->setOtherAttributes($this->faker->sentences(3, false))
 				   ->setMaxPlayers($this->faker->numberBetween(3, 20)) 
 

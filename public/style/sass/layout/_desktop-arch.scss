@@ -1,0 +1,13 @@
+@media screen and(min-width: 850px){
+	body{
+		display: grid;
+		grid-template-columns: repeat(12, 1fr);
+		grid-column-gap: 20px;  
+		grid-template-areas: 
+		"menu menu brandTop brandTop brandTop brandTop brandTop brandTop brandTop brandTop brandTop brandTop "
+		"menu menu container container container container container container container container container container "
+
+	}
+
+	
+}

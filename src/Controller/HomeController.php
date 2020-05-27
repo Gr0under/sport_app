@@ -27,6 +27,8 @@ class HomeController extends AbstractController{
 		}
 		$repository = $em->getRepository(SportEvent::class);
 
+
+
 		$form = $this->createForm(SearchEventType::class);
 		$form->handleRequest($request);
 
@@ -38,7 +40,26 @@ class HomeController extends AbstractController{
 		}
 
 
+
+
 		$events = $repository->findAll();
+
+		if (null !== $this->getUser() && $this->getUser()->getSports() !== null){
+
+			$events= []; 
+
+		
+				$sportevents = $this->getUser()->getSports(); 
+
+				foreach ($sportevents as $event) {
+					# code...
+					foreach ($event->getSportEvents() as $e) {
+						$events[] = $e ; 
+					}
+				}
+
+		}
+
 
 		return $this->render("home.html.twig", [
 			"events" => $events,
@@ -59,6 +80,24 @@ class HomeController extends AbstractController{
 			"event" => $event,
 		]);
 
+	}
+
+
+	/**
+	 * @Route("/dql", name="app_dql_test")
+	 */
+	public function dqlTest(EntityManagerInterface $em){
+		
+		$users = $em->getRepository(User::class);
+
+		$req = $users->allUsersOrderedByPseudo(); 
+
+		$research = $users->search("Tennis");
+
+		dd($research); 
+
+		dd($req); 
+	
 	}
 
 }

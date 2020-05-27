@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% include('sections/brand_top.html.twig') %}
+
+   <div class="form registerForm">
+
+    {{form_start(form.sport)}}
+
+  
+       
+       <h2 class="form__title">Mes sports favoris</h2>
+       <p class="form__text">Sélectionner autant de sport que vous le souhaitez dans la liste ci-dessous pour un affichage et des notifications personnalisées selon vos choix.</p>
+
+      		<div class="form__checkbox_group">	
+             		<input type="checkbox" id="running">
+             		<label for="running">Run</label> 
+      		</div>
+
+
+      
+      
+
+
+
+		
+    {{form_end(form.sport)}}
+
+      
+   </div>
+
+
+   
+    {% include("sections/navbar_mobile.html.twig") %}
+
+</div>
+
+{% endblock %}
+
+

@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use App\Form\UserInfosType; 
+use App\Form\FavoriteSportsType; 
 use App\Form\UserDescriptionType; 
 use App\Entity\User; 
 use Symfony\Component\HttpFoundation\Request;
@@ -67,6 +68,22 @@ class ProfileManagerController extends AbstractController
     	}
         return $this->render('register/userDescription.html.twig', [
             "descriptionForm" => $descriptionForm->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/profile/mes-sports", name="app_manage_sports")
+     */
+    public function manageSports(Request $request, EntityManagerInterface $em)
+    {
+        $form = $this->createForm(FavoriteSportsType::class);
+        // if($form->isSubmitted() && $form->isValid())
+        // {
+            
+        // }
+
+        return $this->render('profile_manager/userSportsManager.html.twig', [
+            "form" => $form->createView(),
         ]);
     }
 }

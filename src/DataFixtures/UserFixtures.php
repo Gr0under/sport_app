@@ -6,6 +6,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use App\Entity\User; 
+use App\Entity\SportCategory; 
 
 class UserFixtures extends BaseFixture
 {
@@ -26,7 +27,7 @@ class UserFixtures extends BaseFixture
 	}
     protected function loadData(ObjectManager $manager)
     {
-    	$this->createMany(User::class, 10, function(User $user, $count){
+    	$this->createMany(User::class, 100, function(User $user, $count){
 
 			$user->setEmail("paul.juquelier".$count."@gmail.com")
 	    		 ->setPassword($this->encoder->encodePassword($user, "engage"))
@@ -37,6 +38,8 @@ class UserFixtures extends BaseFixture
 	             ->setGender("male")
 	             ->setRoles([])
 	             ->setPicture($this->faker->randomElement(self::$profilePicture)) 
+	             ->addSport($this->getRandomReference(SportCategory::class))
+	             ->addSport($this->getRandomReference(SportCategory::class))
 	             ;
 
     	});

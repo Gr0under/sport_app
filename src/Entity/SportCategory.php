@@ -35,9 +35,15 @@ class SportCategory
      */
     private $thumbnail_collection = [];
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="sports")
+     */
+    private $players;
+
     public function __construct()
     {
         $this->sportEvents = new ArrayCollection();
+        $this->players = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -98,6 +104,34 @@ class SportCategory
     public function setThumbnailCollection(array $thumbnail_collection): self
     {
         $this->thumbnail_collection = $thumbnail_collection;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getPlayers(): Collection
+    {
+        return $this->players;
+    }
+
+    public function addPlayer(User $player): self
+    {
+        if (!$this->players->contains($player)) {
+            $this->players[] = $player;
+            $player->addSport($this);
+        }
+
+        return $this;
+    }
+
+    public function removePlayer(User $player): self
+    {
+        if ($this->players->contains($player)) {
+            $this->players->removeElement($player);
+            $player->removeSport($this);
+        }
 
         return $this;
     }

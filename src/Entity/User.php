@@ -107,12 +107,18 @@ class User implements UserInterface
      */
     private $picture;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\SportCategory", inversedBy="players")
+     */
+    private $sports;
+
  
 
     public function __construct()
     {
         $this->sportEventsOrganiser = new ArrayCollection();
         $this->sportEventsAsPlayer = new ArrayCollection();
+        $this->sports = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -333,6 +339,32 @@ class User implements UserInterface
     public function setPicture(?string $picture): self
     {
         $this->picture = $picture;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|SportCategory[]
+     */
+    public function getSports(): Collection
+    {
+        return $this->sports;
+    }
+
+    public function addSport(SportCategory $sport): self
+    {
+        if (!$this->sports->contains($sport)) {
+            $this->sports[] = $sport;
+        }
+
+        return $this;
+    }
+
+    public function removeSport(SportCategory $sport): self
+    {
+        if ($this->sports->contains($sport)) {
+            $this->sports->removeElement($sport);
+        }
 
         return $this;
     }
