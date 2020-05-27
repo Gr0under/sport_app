@@ -4,7 +4,7 @@
 
 {% include('sections/brand_top.html.twig') %}
 
-<div class="profile">
+<div class="profile contentContainer">
 	<div class="profile__header">
 		<a href="{{path('app_logout')}}" class="profile__logout">Déconnexion</a>
 		<div class="profile__picture" style="background-image: url({{asset(app.user.picture)}})"></div>

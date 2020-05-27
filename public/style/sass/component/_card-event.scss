@@ -5,12 +5,17 @@
 	border-radius: 5px;
 	margin-bottom: 1.5rem;
 
+	@media screen and(min-width: 850px) {
+		margin: 10px;
+	}
+
 	
 	&__header{
 		position: relative;
 
 		.card_event__thumbnail{
 			width: 100%;
+			border-radius: 5px 5px 0 0 ; 
 		}
 
 		.like_container{
@@ -73,7 +78,7 @@
 			display: flex;
 			justify-content: flex-end;
 			align-items: center;
-			margin-bottom: 2rem;
+			padding-bottom: 2rem;
 
 			.card_event__action{
 				text-decoration: none;

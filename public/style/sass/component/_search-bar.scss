@@ -1,5 +1,13 @@
 .searchBar{
 	margin-top: 1.5rem; 
+	position: sticky;
+	top:1rem;
+	z-index: 12;
+	background: $white;
+
+	@media screen and (min-width: 850px) {
+		margin-left: 2rem;
+	}
 
 	.relative{
 		position: relative;

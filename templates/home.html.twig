@@ -1,7 +1,10 @@
 {% extends 'base.html.twig' %} 
 
 {% block body %}
+
+	
 	{% include('sections/brand_top.html.twig') %}
+
 	<div class="searchBar form">
 		{{form_start(form, {'attr': {'class': 'searchBar__form'}})}}
 			<div class="relative">
@@ -15,7 +18,7 @@
 
 	<div class="searchLayout"></div>
 
-	<h2 class="landing_page__title">Nom du site. Trouver des rassemblements sportifs près de chez vous.</h2>
+	
 
 	{% include('sections/card_event.html.twig') %}
 

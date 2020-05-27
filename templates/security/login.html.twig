@@ -5,36 +5,37 @@
 
 
 
-<div class="form loginForm">
-    <h2 class="form__title form__title--mb">Connexion</h2>
-    <form class="form-signin" method="post">
-         {% if error %}
-             <div class="form__error">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-         {% endif %}
-    <label for="inputEmail" class="sr-only">Email address</label>
-    <input type="email" name="email" id="inputEmail" value="{{last_username}}" class="form-control" placeholder="Email address" required autofocus>
-         <label for="inputPassword" class="sr-only">Password</label>
-         <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+    <div class="form loginForm contentContainer">
+        <h2 class="form__title form__title--mb">Connexion</h2>
+        <form class="form-signin" method="post">
+             {% if error %}
+                 <div class="form__error">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+             {% endif %}
+        <label for="inputEmail" class="sr-only">Email address</label>
+        <input type="email" name="email" id="inputEmail" value="{{last_username}}" class="form-control" placeholder="Email address" required autofocus>
+             <label for="inputPassword" class="sr-only">Password</label>
+             <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
 
-         <label>
-             <input type="checkbox" name="_remember_me"> Me reconnecter automatiquement
-         </label>
-      
+             <label>
+                 <input type="checkbox" name="_remember_me"> Me reconnecter automatiquement
+             </label>
+          
 
-         <div class="form__buttons-wrapper">
-            <button type="submit" class="form__btn-next form__btn-next--size form__btn--size btn btn-primary">Connexion</button>
-         </div>
+             <div class="form__buttons-wrapper">
+                <button type="submit" class="form__btn-next form__btn-next--size form__btn--size btn btn-primary">Connexion</button>
+             </div>
 
-         
-         
-         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-     </form>
+             
+             
+             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+         </form>
 
-     <a href="#" class="forgottenPasswordLink loginPage__link">Mot de passe oublié ?</a>
-     <p>Vous n’avez pas de compte ? <a href="{{path('app_register')}}" class="registrationLink loginPage__link">Inscription</a></p>
+         <a href="#" class="forgottenPasswordLink loginPage__link">Mot de passe oublié ?</a>
+         <p>Vous n’avez pas de compte ? <a href="{{path('app_register')}}" class="registrationLink loginPage__link">Inscription</a></p>
+
+    </div>
+
     {% include("sections/navbar_mobile.html.twig") %}
-
-</div>
 
 {% endblock %}
 

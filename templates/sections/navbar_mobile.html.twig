@@ -1,43 +1,50 @@
 <div class="navbarMobile">
+
+	{% if is_granted('ROLE_USER') %}
+		<div class="profile__picture" style="background-image: url({{asset(app.user.picture)}})"></div>
+	{% else %}
+		<div class="profile__picture" style="background-image: url({{asset('/img/profilePicture/anonymous_user.png')}})"></div>
+	{% endif %}
+
 	<div class="navbarMobile__link-group">
 		<a href="{{path("home")}}" class="navbarMobile__link">
-			<i class="fas fa-search navbarMobile__icon"></i><br>
-			explorer
+			<i class="fas fa-search navbarMobile__icon"></i>
+			<span>explorer</span>
 		</a>
 	</div>
 	<div class="navbarMobile__link-group">
 		<a href="#" class="navbarMobile__link">
-			<i class="far fa-star navbarMobile__icon"></i><br>
-			favoris
+			<i class="far fa-star navbarMobile__icon"></i>
+			<span>favoris</span>
 		</a>
 	</div>
 	{% if is_granted('ROLE_USER') %}
 		<div class="navbarMobile__link-group">
 			<a href="{{path("app_list_event")}}" class="navbarMobile__link navbarMobile__link--bigger">
-				<i class="fas fa-running navbarMobile__icon"></i><br>
-				mes sorties
+				<i class="fas fa-running navbarMobile__icon"></i>
+				<span>mes sorties</span>
 			</a>
 		</div>
 	{% endif %}
 	<div class="navbarMobile__link-group">
 		<a href="{{path('createEvent', {step:"choisir-un-sport"})}}" class="navbarMobile__link">
-			<i class="far fa-plus-square navbarMobile__icon"></i> <br>
-			créer
+			<i class="far fa-plus-square navbarMobile__icon"></i> 
+			<span>créer</span>
 		</a>
 	</div>
 	<div class="navbarMobile__link-group">
 		{% if is_granted('ROLE_USER') %}
 
 			<a href="{{path('app_profile_manager')}}" class="navbarMobile__link">
-				<i class="fas fa-user navbarMobile__icon"></i><br>
-				Mon compte
+				<i class="fas fa-user navbarMobile__icon"></i>
+				<span>Mon compte</span>
 			</a>
 			
 			{% else %}
 
 			<a href="{{path("app_login")}}" class="navbarMobile__link">
-				<i class="fas fa-user navbarMobile__icon"></i><br>
-				connexion
+				<i class="fas fa-user navbarMobile__icon"></i>
+				<span>connexion</span>
 			</a>
 
 		{% endif %}
