@@ -1,0 +1,118 @@
+.contentSwitcher {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
+
+.contentSwitcher a{
+	font-family: $robotoCondensed;
+	font-weight: $robotoCondensed-bold;
+	color: $red;
+	text-transform: uppercase;
+	padding: 1rem 0.5rem;
+	font-size: 1rem;
+}
+
+.contentSwitcher > .inactive {
+	color: $grey;
+	text-decoration: none;
+}
+
+.contentContainer.eventWallInfos{
+	padding: 0 1rem;
+}
+
+.eventWallInfos .eventWallMessages{
+	transition: 0.2s ease; 
+}
+
+.eventWallInfos{
+
+	display: none ;
+
+	&__thumbnail{
+		width: 100%;
+	}
+
+	&__title{
+		@include title-bold-2r; 
+	}
+
+	&__infosList{
+		padding: 0;
+
+		li {
+			list-style-type: none;
+		}
+
+		&--fw-medium li {
+			font-weight: $roboto-medium;
+			margin-bottom: 14px;
+		}	
+	}
+
+	&__infoBox{
+		padding: 1.5rem 1rem;
+		border: solid 0.8px $gold;
+		border-left: solid 1.6px $gold;
+		border-right: solid 1.6px $gold;
+		font-size: 18px;
+		font-family: $robotoCondensed;
+		font-weight: $robotoCondensed-bold;
+		text-transform: italic;
+		text-transform: uppercase;
+
+		&--text{
+			margin-bottom: 0;
+			font-size: 1rem;
+			font-family: $roboto;
+			font-weight: $roboto-regular;
+			text-transform: none;
+		} 
+
+		.panel{
+			display: none; 
+		}
+
+		.panel.active{
+			display: block; 
+		}
+
+		.infoBox__list{
+
+			padding-left: 24px;
+			font-size: 1rem;
+
+			li{
+				font-family: $roboto;
+				font-weight: $roboto-regular;
+				text-transform: none;
+				list-style-type: disc;
+				padding-top: 0.5rem;
+				margin-top: 0.5rem;
+			}
+		}
+
+		.event__playersList{
+			padding-top: 1rem;
+			font-size: 1rem;
+		}
+
+	}
+
+	&__infoBox.infoBox--1{
+		border-top: solid 1.6px $gold;
+	}
+	&__infoBox.infoBox--7{
+		border-bottom: solid 1.6px $gold;
+	}
+}
+
+.cta-invite{
+	@include red-btn;
+	margin: 1rem 0;
+	font-size: 1.5rem;
+	width: 100%;
+	text-align: center;
+}
+

@@ -1,0 +1,152 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	{% include('sections/brand_top.html.twig') %}
+
+	<div class="contentSwitcher">
+		<a class=" messageSwitch" href="#">Messages</a>
+		<a class = "inactive informationSwitch" href="#">Informations</a>
+	</div>
+
+	<section class="contentContainer eventWallMessages">
+		hello
+	</section>
+
+	<section class="contentContainer eventWallInfos">
+
+		<img class="eventWallInfos__thumbnail" src="{{asset(event.thumbnail)}}" alt="{{event.title}}">
+		
+		<h1 class="eventWallInfos__title">{{event.title}}</h1>
+
+		<ul class="eventWallInfos__infosList eventWallInfos__infosList--fw-medium">
+			<li>Organisé par : {{event.organiser.pseudo}}</li>
+			<li>Date : {{event.date|date("d/m/yy")}}</li>
+			<li>Horaires : {{event.timeStart|date("H")}}h - {{event.timeEnd|date("H")}}h</li>
+		</ul>
+
+		<a href="#" class="cta-invite">inviter un ami</a>
+
+		<ul class="eventWallInfos__infosList">
+			<li class="eventWallInfos__infoBox infoBox--1">
+				description
+				<div class="panel">
+					<p class="eventWallInfos__infoBox--text">{{event.description|nl2br}}</p>
+				</div>
+			</li>
+
+			<li class="eventWallInfos__infoBox infoBox--2">
+				lieu
+				<div class="panel">
+					<p class="eventWallInfos__infoBox--text"> <strong>Adresse : </strong> {{event.locationAddress|nl2br}}</p>
+					<p class="eventWallInfos__infoBox--text"> <strong>Point de rdv : </strong> {{event.locationDescription|nl2br}}</p>
+				</div>
+			</li>
+
+			<li class="eventWallInfos__infoBox infoBox--3">
+				matériel
+				<div class="panel">
+					<ul class="infoBox__list">
+						{% for material in event.material %}
+							<li class="event__material_item">{{material}}</li>
+						{% endfor %}
+					</ul>
+				</div>
+			</li>
+
+			<li class="eventWallInfos__infoBox infoBox--4">
+				participants
+				<div class="panel">
+					<ul class="event__playersList">
+						{% for player in event.players %}
+							<li class="event__player">
+								<div class="profile_picture" style="background-image: url({{asset(player.picture)}})"></div>
+								{{player.pseudo}}
+								
+							</li>
+						{% endfor %}
+					</ul>
+				</div>
+			</li>
+
+			<li class="eventWallInfos__infoBox infoBox--5">
+				prix
+				<div class="panel">
+					<p class="eventWallInfos__infoBox--text">{{event.priceDescription}}</p>
+				</div>
+			</li>
+
+			<li class="eventWallInfos__infoBox infoBox--6">
+				niveau
+				<div class="panel">
+					<p class="eventWallInfos__infoBox--text"> <strong>{{event.level}} : </strong> {{event.levelDescription}}</p>
+				</div>
+			</li>
+
+			<li class="eventWallInfos__infoBox infoBox--7">
+				infos complémentaires
+				<div class="panel">
+					<ul class="infoBox__list">
+						{% for infos in event.otherAttributes %}
+							<li class="event__material_item">{{infos}}</li>
+						{% endfor %}
+					</ul>
+				</div>
+			</li>
+		</ul>
+
+	</section>
+	{% include('sections/navbar_mobile.html.twig') %}
+{% endblock %}
+
+{% block javascripts %}
+	{{parent()}}
+
+	<script>
+		var acc = document.getElementsByClassName("eventWallInfos__infoBox");
+		console.log(acc);
+
+		for (var i = 0; i < acc.length ; i++) {
+			acc[i].addEventListener("click", function(e){
+				
+				for (var k = 0 ; k < e.target.children.length; k++){
+					if (e.target.children[k].classList.contains('panel')){
+
+						e.target.children[k].classList.toggle("active"); 
+					}
+				}
+			});	
+		}	
+
+		var messageSwitch = document.querySelector(".messageSwitch");
+		var informationSwitch = document.querySelector(".informationSwitch");
+
+		var eventWallInfos = document.querySelector(".eventWallInfos"); 
+		var eventWallMessages = document.querySelector(".eventWallMessages"); 
+
+
+
+		messageSwitch.addEventListener("click", function(e){
+			e.preventDefault(); 
+			if(e.target.classList.contains("inactive"))
+			{
+				e.target.classList.toggle("inactive"); 
+				informationSwitch.classList.toggle("inactive"); 
+				eventWallInfos.style.display="none";
+				eventWallMessages.style.display="block";  
+			}
+		}); 
+
+		informationSwitch.addEventListener("click", function(e){
+			e.preventDefault();
+			if (e.target.classList.contains("inactive")) 
+			{
+				e.target.classList.toggle("inactive");
+				messageSwitch.classList.toggle("inactive"); 
+				eventWallInfos.style.display="block";
+				eventWallMessages.style.display="none";  
+			}
+		}); 
+
+
+	</script>
+{% endblock %}	

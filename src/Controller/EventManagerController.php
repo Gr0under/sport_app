@@ -40,12 +40,24 @@ class EventManagerController extends AbstractController
 
 
     /**
-     * @Route("/event/list", name="app_list_event")
+     * @Route("/mes-sorties", name="app_list_event")
      * @IsGranted("ROLE_USER")
      */
     public function displayEventList(EntityManagerInterface $em)
     {
         return $this->render('/event_manager/eventList.html.twig'); 
+    }
+
+    /**
+     * @Route("/mes-sorties/{id}", name="event_wall")
+     * @IsGranted("ROLE_USER")
+     */
+    public function displayEventWall(SportEvent $event)
+    {
+        $this->denyAccessUnlessGranted('WALL_VIEW', $event); 
+        return $this->render('/event_manager/eventWall.html.twig', [
+                "event" => $event, 
+        ]); 
     }
 
 
