@@ -2,6 +2,10 @@
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
+
+	@media screen and(min-width: 850px) {
+		display: none;
+	}
 }
 
 .contentSwitcher a{
@@ -18,15 +22,179 @@
 	text-decoration: none;
 }
 
-.contentContainer.eventWallInfos{
+.contentContainer.eventWallInfos , .contentContainer.eventWallMessages{
 	padding: 0 1rem;
+
+	@media screen and(min-width: 850px) {
+		padding: 0;
+		margin-top: 2rem;
+	}
 }
 
-.eventWallInfos .eventWallMessages{
-	transition: 0.2s ease; 
+
+.eventWallMessages{
+
+	@media screen and(min-width: 850px) {
+		grid-column: 4 / span 5 ; 
+		grid-row: 2; 
+	}
+
+	.messageCard{
+		width: 100%;
+		border: solid 1px $green;
+		border-radius: 4px; 
+		margin-bottom: 1.5rem;
+
+		&__header{
+			padding: 8px 16px;
+			font-size: 12px;
+			font-family: $roboto;
+			font-weight: $roboto-bold;
+			color: $green;
+		}	
+
+
+		&__core{
+			padding: 1rem;			
+		}
+
+		&__footer{
+			border-top: solid 1px $green; 
+			padding: 10px 1rem;
+			display: flex;
+			justify-content: space-between;
+			align-items: center; 
+
+			button {
+				min-width: 64px; 
+				border:none;
+				background: $gold;
+				padding: 10px 1rem;
+				text-transform: uppercase;
+				text-transform: italic;
+				color: $white;
+				font-size: 14px;
+				font-family: $robotoCondensed;
+				font-weight: $robotoCondensed-bold;
+				cursor : pointer;
+			}
+
+			.fa-camera{
+				color: $grey;
+				font-size: 1.5rem;
+				cursor: pointer;
+			}
+
+			.js_letterCount{
+				margin-right: -9rem;
+				font-size: 14px;
+				color: $grey;
+			}
+
+		}
+	}
+
+	.messageCard--post{
+
+		.messageCard__header{
+			border-bottom: solid 1px $green; 
+
+		}	
+
+		.messageCard__core{
+
+			padding: 0;
+
+			.messageForm{
+				padding: 16px;
+				border: none;
+				min-height: 120px;
+				max-width: 100%;
+				min-width: 100%;
+				font-family: $roboto;
+				font-size: 14px;
+			}
+
+		}
+
+	}
+
+	.messageCard--read{
+
+		.messageCard__header{
+			display: flex;
+			align-items: center; 
+
+			position: relative;
+
+			.fa-ellipsis-v{
+				position: absolute;
+				right: 8px;
+				top: 16px;
+				font-size: 1rem;
+				cursor:pointer;
+			}
+
+			.profile_picture{
+				@include userPictureInList;
+				margin-right: 11px;
+			}
+
+			.postInfos{
+				display: flex;
+				flex-direction: column;
+				color: $text-color;
+
+
+				.postDate{
+					margin-top: 0.2rem;
+					font-weight: $roboto-regular;
+				}
+			}
+		}
+
+		.messageCard__core{
+			word-break: break-all;
+		}
+
+
+
+		.messageCard__footer{
+
+			margin-top: 1rem;
+
+			a{
+				text-decoration: none;
+				color: $green;
+				font-size: 14px;
+				font-weight: $roboto-bold;
+			}
+
+
+		}
+	}
+
+
+.messageSeparator{
+	width: 100%;
+	text-align: center;
+	margin-bottom: 1.5rem;
+	text-transform: uppercase;
+	text-transform: italic;
+	font-family: $robotoCondensed;
+
+}
+
 }
 
 .eventWallInfos{
+
+	@media screen and(min-width: 850px) {
+		display: block; 
+		grid-column: 9 / span 3 ; 
+		grid-row: 2; 
+		margin-left: 2rem;
+	}
 
 	display: none ;
 
@@ -106,6 +274,8 @@
 	&__infoBox.infoBox--7{
 		border-bottom: solid 1.6px $gold;
 	}
+
+
 }
 
 .cta-invite{

@@ -9,7 +9,55 @@
 	</div>
 
 	<section class="contentContainer eventWallMessages">
-		hello
+
+		{{ form_start(form)}}
+
+		<div class="messageCard messageCard--post">
+			<div class="messageCard__header">
+				<span>Rédiger un message public</span>
+			</div>
+			<div class="messageCard__core">
+				{{ form_row(form.message)}}
+			</div>
+			<div class="messageCard__footer">
+				<i class="fa fa-camera"></i>
+				<span class="js_letterCount">940</span>
+				<button type="submit">publier</button>
+			</div>
+		</div>
+
+		{{ form_end(form) }}
+
+			<div class="messageSeparator">Les derniers messages</div>
+
+
+
+		{% for message in event.eventWallMessages|sort((a,b) => b.createdAt <=> a.createdAt) %}
+
+			<div class="messageCard messageCard--read">
+				<div class="messageCard__header">
+
+					<div class="profile_picture" style="background-image: url({{asset(message.author.picture)}})"></div>
+
+					<div class="postInfos">
+						<span class="authorName">{{message.author.pseudo}}</span>
+						<span class="postDate">{{message.createdAt|date('d/m/yy')}}</span>
+					</div>
+
+					<i class="fas fa-ellipsis-v"></i>
+
+				</div>
+				<div class="messageCard__core">
+					{{ message.message|nl2br }}
+				</div>
+				<div class="messageCard__footer">
+					<a href="#" class="messageCard__nbAnswers">3 réponses</a>
+					<a href="#" class="messageCard__answerLink">Répondre</a>
+				</div>
+			</div>
+
+		{% endfor %}
+
 	</section>
 
 	<section class="contentContainer eventWallInfos">
@@ -94,6 +142,8 @@
 			</li>
 		</ul>
 
+		<a class="linkDelete" href="#"><i class="fa fa-trash"></i>Delete</a>
+
 	</section>
 	{% include('sections/navbar_mobile.html.twig') %}
 {% endblock %}
@@ -102,13 +152,38 @@
 	{{parent()}}
 
 	<script>
+		var iconDelete = document.querySelector(".fa-trash");
+		var linkDelete = document.querySelector(".linkDelete");
+
+
+		iconDelete.addEventListener("click", function(e){
+			e.preventDefault();
+			// console.log(e.target); 
+		});
+
+		linkDelete.addEventListener("click", function(e){
+			e.preventDefault();
+			console.log(e.currentTarget); 
+
+			console.log(this); 
+			this.firstChild.classList.remove('fa-trash');
+			this.firstChild.classList.add('fa-spinner'); 
+			this.firstChild.classList.add('fa-spin'); 
+
+		});
+
+
+	</script>
+
+	<script>
 		var acc = document.getElementsByClassName("eventWallInfos__infoBox");
 		console.log(acc);
 
 		for (var i = 0; i < acc.length ; i++) {
-			acc[i].addEventListener("click", function(e){
+			acc[i].addEventListener("click", (e) => {
 				
 				for (var k = 0 ; k < e.target.children.length; k++){
+					console.log(e.currentTarget); 
 					if (e.target.children[k].classList.contains('panel')){
 
 						e.target.children[k].classList.toggle("active"); 
@@ -125,7 +200,7 @@
 
 
 
-		messageSwitch.addEventListener("click", function(e){
+		messageSwitch.addEventListener("click", (e) => {
 			e.preventDefault(); 
 			if(e.target.classList.contains("inactive"))
 			{
@@ -136,7 +211,7 @@
 			}
 		}); 
 
-		informationSwitch.addEventListener("click", function(e){
+		informationSwitch.addEventListener("click", (e) => {
 			e.preventDefault();
 			if (e.target.classList.contains("inactive")) 
 			{
@@ -146,6 +221,23 @@
 				eventWallMessages.style.display="none";  
 			}
 		}); 
+
+
+
+		// Compteur de lettres pour les posts
+
+		var textArea = document.querySelector(".messageForm");
+		var letterCounter = document.querySelector(".js_letterCount");
+
+
+		textArea.addEventListener("keyup", (e) => {
+			console.dir(e.target); 
+			console.log(e.target.value.length); 
+			letterCounter.innerText = 940 - (e.target.value.length) ; 
+			
+		});
+
+
 
 
 	</script>
