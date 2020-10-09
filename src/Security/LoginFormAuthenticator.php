@@ -11,7 +11,7 @@ use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticato
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Security; 
 
-use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface; //verificatoin des csrf token
+use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface; //verification des tokens csrf 
 use Symfony\Component\Security\Csrf\CsrfToken; 
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 
@@ -86,7 +86,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     }
 
     // Cette méthode permet de faire le rapprochement entre les credentials et les infos de l'objet User. Exemple, vérifier que le password donné en credentials match avec celui de l'objet User précédemment retourné par la méthode getUser
-    // Lorsque true est retourné, la méthode onAuthenticationSuccess est automatiquement déclenchée pour dire à Symfo ce que l'on fait ensuite
+    // Lorsque true est retourné, la méthode onAuthenticationSuccess est automatiquement déclenchée pour indiquer ce que l'on fait ensuite
     public function checkCredentials($credentials, UserInterface $user)
     {
         return $this->passwordEncoder->isPasswordValid($user, $credentials['password']);

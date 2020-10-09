@@ -129,9 +129,15 @@ class SportEvent
      */
     private $players;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\EventWallMessage", mappedBy="event", orphanRemoval=true)
+     */
+    private $eventWallMessages;
+
     public function __construct()
     {
         $this->players = new ArrayCollection();
+        $this->eventWallMessages = new ArrayCollection();
     }
 
    
@@ -408,6 +414,37 @@ class SportEvent
     {
         if ($this->players->contains($player)) {
             $this->players->removeElement($player);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|EventWallMessage[]
+     */
+    public function getEventWallMessages(): Collection
+    {
+        return $this->eventWallMessages;
+    }
+
+    public function addEventWallMessage(EventWallMessage $eventWallMessage): self
+    {
+        if (!$this->eventWallMessages->contains($eventWallMessage)) {
+            $this->eventWallMessages[] = $eventWallMessage;
+            $eventWallMessage->setEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEventWallMessage(EventWallMessage $eventWallMessage): self
+    {
+        if ($this->eventWallMessages->contains($eventWallMessage)) {
+            $this->eventWallMessages->removeElement($eventWallMessage);
+            // set the owning side to null (unless already changed)
+            if ($eventWallMessage->getEvent() === $this) {
+                $eventWallMessage->setEvent(null);
+            }
         }
 
         return $this;

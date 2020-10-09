@@ -16,7 +16,7 @@
 
 	<div class="eventCardSmall__bottomContainer">
 		<div class="eventCardSmall__ctaContainer">
-			<a href="{{path('event', {slug: event.id})}}" class="eventCardSmall__link">Voir</a>
+			<a href="{{path('event_wall', {id: event.id})}}" class="eventCardSmall__link">Voir</a>
 			{% if app.user.username is same as(event.organiser.username) %}
 				<a href="{{path('app_manage_event', {id: event.id})}}" class="eventCardSmall__link eventCardSmall__link--outlined">Gérer</a>
 			{% endif %}

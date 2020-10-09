@@ -7,6 +7,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\SportEvent;
 use App\Entity\User;
+use App\Entity\EventWallMessage;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use App\Form\CreateEventStep1Type;
@@ -16,6 +17,7 @@ use App\Form\CreateEventStep4Type;
 use App\Form\CreateEventStep5Type;
 use App\Form\ContactPlayerType;
 use App\Form\DeletePlayerType;
+use App\Form\WallMessageType; 
 
 
 class EventManagerController extends AbstractController
@@ -40,12 +42,46 @@ class EventManagerController extends AbstractController
 
 
     /**
-     * @Route("/event/list", name="app_list_event")
+     * @Route("/mes-sorties", name="app_list_event")
      * @IsGranted("ROLE_USER")
      */
     public function displayEventList(EntityManagerInterface $em)
     {
         return $this->render('/event_manager/eventList.html.twig'); 
+    }
+
+    /**
+     * @Route("/mes-sorties/{id}", name="event_wall")
+     * @IsGranted("ROLE_USER")
+     */
+    public function displayEventWall(SportEvent $event, EntityManagerInterface $em, Request $request, $id)
+    {
+        $this->denyAccessUnlessGranted('WALL_VIEW', $event);
+
+
+        $form = $this->createForm(WallMessageType::class);
+
+        $form->handleRequest($request); 
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $data = $form->getData(); 
+
+            $message = new EventWallMessage;
+            $message->setAuthor($this->getUser())
+                    ->setMessage($data->getMessage())
+                    ->setPin(false)
+                    ->setEvent($event);
+            $em->persist($message);
+            $em->flush();
+
+            return $this->redirectToRoute('event_wall', ['id' => $event->getId() ]); 
+        }
+
+        return $this->render('/event_manager/eventWall.html.twig', [
+                "event" => $event, 
+                "form" => $form->createView(),
+        ]); 
     }
 
 
@@ -54,6 +90,7 @@ class EventManagerController extends AbstractController
      */
     public function manageEvent(SportEvent $event)
     {
+
         $this->denyAccessUnlessGranted('MANAGE', $event); 
 
         return $this->render('/event_manager/manageEvent.html.twig',[

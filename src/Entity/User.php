@@ -112,6 +112,11 @@ class User implements UserInterface
      */
     private $sports;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\EventWallMessage", mappedBy="author")
+     */
+    private $eventWallMessages;
+
  
 
     public function __construct()
@@ -119,6 +124,7 @@ class User implements UserInterface
         $this->sportEventsOrganiser = new ArrayCollection();
         $this->sportEventsAsPlayer = new ArrayCollection();
         $this->sports = new ArrayCollection();
+        $this->eventWallMessages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -364,6 +370,37 @@ class User implements UserInterface
     {
         if ($this->sports->contains($sport)) {
             $this->sports->removeElement($sport);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|EventWallMessage[]
+     */
+    public function getEventWallMessages(): Collection
+    {
+        return $this->eventWallMessages;
+    }
+
+    public function addEventWallMessage(EventWallMessage $eventWallMessage): self
+    {
+        if (!$this->eventWallMessages->contains($eventWallMessage)) {
+            $this->eventWallMessages[] = $eventWallMessage;
+            $eventWallMessage->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEventWallMessage(EventWallMessage $eventWallMessage): self
+    {
+        if ($this->eventWallMessages->contains($eventWallMessage)) {
+            $this->eventWallMessages->removeElement($eventWallMessage);
+            // set the owning side to null (unless already changed)
+            if ($eventWallMessage->getAuthor() === $this) {
+                $eventWallMessage->setAuthor(null);
+            }
         }
 
         return $this;
